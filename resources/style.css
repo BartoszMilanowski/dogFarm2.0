@@ -21,6 +21,8 @@ section {
 }
 
 body {
+    padding: 0;
+    margin: 0;
     background-color: #fefdf2;
 }
 
@@ -224,7 +226,8 @@ a {
 }
 
 .contact-data span {
-    padding: 0.2em;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
 }
 
 .sm-icon {
@@ -235,7 +238,6 @@ a {
 
 #footer {
     display: flex;
-    position: absolute;
     bottom: 0;
     width: 100%;
     height: 1.5em;
@@ -244,6 +246,7 @@ a {
     align-items: center;
     justify-content: center;
     font-size: 120%;
+    padding: 0;
 }
 
 /*About page*/
