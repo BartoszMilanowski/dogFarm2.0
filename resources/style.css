@@ -1,0 +1,1049 @@
+/*Global settings*/
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 100%;
+    list-style: none;
+}
+
+
+html {
+    font-size: 10px;
+    font-family: 'Nunito', sans-serif;
+    overflow-x: hidden;
+}
+
+section {
+    padding: 15px;
+    max-width: 100vw;
+}
+
+body {
+    background-color: #fefdf2;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/*Navbar*/
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 10vh;
+    padding: 2em;
+    position: fixed;
+    top: 0px;
+    width: 100vw;
+    background-color: rgba(244, 246, 247, 0.3);
+    z-index: 1;
+}
+
+.navbar-logo {
+    height: 8vh;
+}
+
+.menu-list {
+    list-style-type: none;
+    position: relative;
+    display: flex;
+    width: 55%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.menu-link {
+    text-decoration: none;
+    font-size: 20px;
+    position: relative;
+    padding: .2em;
+    color: black;
+}
+
+.menu-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: .15em;
+    border-radius: 20px;
+    background-color: black;
+    transition: .3s ease-in-out;
+}
+
+.menu-link:hover::after {
+    width: 100%;
+}
+
+
+.burger-icon {
+    display: none;
+}
+
+.close-menu {
+    display: none;
+}
+
+.home-icon {
+    display: none;
+}
+
+/* Main page */
+/* Slideshow */
+
+#slideshow {
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    animation: slide 20s infinite;
+}
+
+.slide img {
+    width: 100%;
+    height: 100vh;
+}
+
+.capture-text {
+    font-size: 4em;
+    color: white;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+}
+
+.capture-text a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* Motto */
+
+.motto-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.motto-text-area {
+    width: 50%;
+    font-size: 2.5em;
+    line-height: 1.5em;
+    font-style: italic;
+    padding-left: 8px;
+    padding-right: 1.5em;
+}
+
+.motto-img-area {
+    width: 50%;
+}
+
+.motto-img {
+    width: 100%;
+    height: 600px;
+    border-radius: 15px;
+}
+
+/*About section*/
+
+.about-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.about-section-image {
+    width: 50%;
+}
+
+.about-section-image img {
+    width: 100%;
+    height: 600px;
+    border-radius: 15px;
+}
+
+.about-section-text {
+    width: 50%;
+    font-size: 2.5em;
+    line-height: 1.5em;
+    padding-left: 1.5em;
+    padding-right: 8px;
+}
+
+.more-link {
+    padding-left: 8px;
+    padding-right: 8px;
+    position: relative;
+    padding: .2em;
+}
+
+.more-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: .15em;
+    border-radius: 20px;
+    background-color: black;
+    transition: .3s ease-in-out;
+}
+
+.more-link:hover:after {
+    width: 100%;
+}
+
+/* Contact */
+
+#contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#contact h2 {
+    font-size: 5em;
+}
+
+.contact-data {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 2.5em;
+}
+
+.contact-data span {
+    padding: 0.2em;
+}
+
+.sm-icon {
+    height: 2em;
+}
+
+/* Footer */
+
+#footer {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 1.5em;
+    background-color: black;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    font-size: 120%;
+}
+
+/*About page*/
+
+#about-page {
+    margin-bottom: 3em;
+    padding-left: 3em;
+}
+
+.about-page-first {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 12vh;
+    padding-right: 5em;
+}
+
+.about-page-image {
+    width: 50%;
+}
+
+.about-page-image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+}
+
+.about-page-text-first {
+    width: 50%;
+    font-size: 2.3em;
+    line-height: 1.5em;
+    padding-left: 2em;
+    text-align: center;
+}
+
+.about-page-content {
+    width: 100%;
+    font-size: 2em;
+    line-height: 1.5em;
+    margin-top: 1em;
+    text-align: center;
+}
+
+.about-page-content p {
+    padding-top: .5em;
+    padding-right: 5em;
+}
+
+/*Gallery*/
+
+#about-gallery {
+    text-align: center;
+}
+
+#about-gallery h2 {
+    font-size: 3em;
+    margin-bottom: 2em;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 3em;
+    row-gap: 5em;
+    margin-left: 3em;
+}
+
+.gallery-item {
+    cursor: pointer;
+    margin: 3px;
+    border-radius: 15px;
+}
+
+.gallery-item img {
+    width: 40em;
+    height: 30em;
+    border-radius: 15px;
+    object-fit: cover;
+    transition: .3s ease-in-out;
+}
+
+.gallery-item img:hover {
+    transform: scale(1.1);
+}
+
+.modal {
+    width: 100%;
+    height: 110%;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.9);
+    margin-top: -1px;
+    animation: zoom .3s ease-in-out;
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+.modal img {
+    width: 50%;
+    object-fit: cover;
+}
+
+.closeBtn {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 25px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 20px;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+}
+
+.closeBtn:hover {
+    color: rgb(255, 255, 255);
+}
+
+/*Breed*/
+
+#breed-top {
+    display: flex;
+    width: 100%;
+    margin-top: 12vh;
+}
+
+.breed-top-img {
+    display: flex;
+    width: 50%;
+    justify-content: center;
+}
+
+.breed-top-img img {
+    object-fit: cover;
+    border-radius: 15px;
+    width: 90%;
+    height: 50em;
+}
+
+.breed-top-text {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.breed-name {
+    font-size: 7em;
+    margin-bottom: .5em;
+}
+
+.breed-basic-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 3em;
+    line-height: 1em;
+}
+
+.breed-basic-info span{
+    text-align: center;
+}
+
+#breed-info {
+    margin-bottom: 3em;
+    padding-left: 3em;
+    padding-right: 3em;
+}
+
+.breed-info-list {
+    column-count: 3;
+    column-gap: 5em;
+}
+
+.breed-info-list-item {
+    display: flex;
+    break-inside: avoid;
+}
+
+.breed-info-list-item div img {
+    width: 4em;
+    margin-right: 1.5em;
+}
+
+.breed-info-list-item div span {
+    font-size: 2.5em;
+    line-height: 2em;
+}
+
+.breed-info-list-item div p {
+    font-size: 2em;
+    line-height: 1.5em;
+}
+
+#dogs {
+    text-align: center;
+    margin-bottom: 3em;
+}
+
+#dogs h2 {
+    font-size: 3em;
+    margin-bottom: 2em;
+}
+
+.dog-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    row-gap: 5em;
+    width: 100%;
+    margin-bottom: 5em;
+}
+
+.dog a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dog img {
+    width: 40em;
+    border-radius: 15px;
+}
+
+.dog span {
+    font-size: 2.5em;
+}
+
+/*About dog*/
+
+#about-dog {
+    margin-top: 12vh;
+    margin-bottom: 3em;
+}
+
+.about-dog {
+    display: flex;
+    width: 100%;
+}
+
+.about-dog-img {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+}
+
+.about-dog-img img {
+    border-radius: 15px;
+}
+
+.about-dog-text {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+}
+
+.dog-name {
+    font-size: 7em;
+    margin-bottom: .5em;
+}
+
+.by-judges-title {
+    font-size: 5em;
+    margin-bottom: .5em;
+}
+
+.by-judges {
+    font-size: 3.5em;
+    line-height: 1.5em;
+}
+
+/*Media queries*/
+
+@media only screen and (max-width: 1400px) {
+
+    /*Navbar*/
+
+    .menu-link {
+        font-size: 2em;
+    }
+
+    /*Main page*/
+
+    .motto-area {
+        margin-top: 2.5em;
+        font-size: .8em;
+    }
+
+    .motto-img {
+        height: 450px;
+    }
+
+    .about-section {
+        margin-top: 2.5em;
+        font-size: .8em;
+    }
+
+    .about-section-image img {
+        height: 450px;
+    }
+
+    #contact h2 {
+        font-size: 4em;
+    }
+
+    .contact-data {
+        font-size: 2em;
+    }
+
+    .sm-icon {
+        height: 1.5em;
+    }
+
+    /*Gallery*/
+
+    .gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    /*Dog*/
+
+    .dog-name {
+        font-size: 5em;
+        margin-bottom: .5em;
+    }
+
+    .by-judges-title {
+        font-size: 3.5em;
+        margin-bottom: .5em;
+    }
+    
+    .by-judges {
+        font-size: 2.5em;
+        line-height: 1.5em;
+    }
+
+}
+
+@media only screen and (max-width: 1200px) {
+
+    /*Navbar*/
+
+    .menu-list {
+        display: none;
+        position: fixed;
+        right: 0;
+        top: 0;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: flex-start;
+        line-height: 5em;
+        line-break: auto;
+        height: 100vh;
+        width: 50vw;
+        padding-top: 8em;
+        padding-right: 5em;
+        background-color: rgba(244, 246, 247, 1);
+        z-index: 1;
+    }
+
+    .burger-icon {
+        display: flex;
+        position: fixed;
+        right: 6%;
+        top: 5;
+        font-size: 4em;
+        height: .9em;
+        cursor: pointer;
+    }
+
+    .close-menu {
+        display: block;
+        font-size: 4em;
+        transform: translateY(-115%) translateX(-10%);
+        cursor: pointer;
+    }
+
+    .menu-link{
+        font-size: 3.5em;
+    }
+
+    .menu-link::after{
+        display: none;
+    }
+
+    /*Main page*/
+
+    #slideshow {
+        height: 50vh;
+    }
+
+    .slide {
+        height: 50vh;
+    }
+
+    .slide img {
+        height: 50vh;
+    }
+
+    .capture-text {
+        position: relative;
+        bottom: 65px;
+    }
+
+    .motto-area {
+        flex-direction: column;
+    }
+
+    .motto-text-area {
+        width: 100vw;
+        font-size: 4em;
+        padding-top: 1em;
+        padding-left: 2em;
+        padding-right: 2em;
+        padding-bottom: 1em;
+    }
+
+    .motto-img-area {
+        width: 100vw;
+        padding-left: 2.5em;
+        padding-right: 2.5em;
+    }
+
+    .about-section {
+        flex-direction: column-reverse;
+    }
+
+    .about-section-text {
+        width: 100vw;
+        font-size: 4em;
+        padding-top: 1em;
+        padding-left: 2em;
+        padding-right: 2em;
+        padding-bottom: 1em;
+    }
+
+    .about-section-image {
+        width: 100vw;
+        padding-left: 2.5em;
+        padding-right: 2.5em;
+    }
+
+    .more-link::after{
+        display: none;
+    }
+
+    #contact h2 {
+        font-size: 5em;
+    }
+
+    .contact-data {
+        flex-direction: column;
+        font-size: 4em;
+    }
+
+    /*About page*/
+
+    #about-page{
+        padding: 0;
+    }
+
+    .about-page-first{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .about-page-image{
+        width: 100%;
+        padding-left: 1em;
+        padding-right: 1em;
+    }
+
+    .about-page-text-first{
+        width: 100%;
+        font-size: 3em;
+        padding-left: 1em;
+        padding-top: 1.5em;
+        text-align: left;
+    }
+
+    .about-page-content {
+        width: 100%;
+        font-size: 2.5em;
+        line-height: 1.5em;
+        margin-top: 1em;
+        text-align: left;
+    }
+    
+    .about-page-content p {
+        padding-top: .5em;
+        padding-right: 1em;
+        padding-left: 1em;
+    }
+
+    /*Gallery*/
+
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 1em;
+        row-gap: 1em;
+        margin-left: 3em;
+    }
+
+    .gallery-item img {
+        width: 30em;
+        height: 30em;
+    }
+
+    .modal img {
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .closeBtn{
+        font-size: 50px;
+    }
+
+    /*Breed*/
+
+    #breed-top{
+        flex-direction: column;
+    }
+
+    .breed-top-img {
+        width: 100%;
+    }
+    
+    .breed-top-img img {
+        object-fit: contain;
+        height: 100%;
+    }
+
+    .breed-top-text{
+        width: 100%;
+        margin-top: 1.5em;
+        margin-bottom: 1.5em;
+    }
+
+    .breed-info-list{
+        column-count: 2;
+    }
+
+    .dog-list{
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dog img{
+        width: 30em;
+    }
+
+    /*Dog*/
+
+    #about-dog {
+        margin-top: 12vh;
+        margin-bottom: 3em;
+    }
+    
+    .about-dog{
+        flex-direction: column;
+    }
+
+    .about-dog-img {
+        width: 100%;
+    }
+    
+    .about-dog-img img {
+        margin-bottom: 2em;
+    }
+    
+    .about-dog-text {
+        width: 100%;
+    }
+    
+    .dog-name {
+        font-size: 5em;
+        margin-bottom: .5em;
+    }
+
+    .by-judges-title {
+        font-size: 3.5em;
+        margin-bottom: .5em;
+    }
+    
+    .by-judges {
+        font-size: 2.5em;
+        line-height: 1.5em;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+    /*Navbar*/
+
+
+    .navbar {
+        height: 10vh;
+        width: 100vw;
+        padding-top: 4em;
+        margin-bottom: 1em;
+    }
+
+    .navbar-logo {
+        display: block;
+        height: .83m;
+    }
+
+    .menu-list {
+        width: 100%;
+        height: 100%;
+        padding-right: 1em;
+    }
+
+    .burger-icon {
+        position: absolute;
+        right: 5%;
+        top: 25%;
+        height: .8em;
+    }
+
+    .close-menu {
+        font-size: 4em;
+        transform: translateY(-150%) translateX(-50%);
+    }
+
+    /*Main page*/
+
+    #slideshow {
+        display: none;
+    }
+
+    .motto-area {
+        flex-direction: column-reverse;
+        margin-top: 10vh;
+    }
+
+    .motto-text-area {
+        width: 100vw;
+        font-size: 3em;
+        padding-left: 1em;
+        padding-right: 1em;
+        padding-bottom: 1em;
+    }
+
+    .motto-img-area {
+        width: 100vw;
+        padding-left: 2.5em;
+        padding-right: 2.5em;
+    }
+
+    .motto-img {
+        width: 100%;
+        height: 25em;
+    }
+
+    .about-section {
+        flex-direction: column;
+    }
+
+    .about-section-text {
+        width: 100vw;
+        font-size: 3em;
+        padding-left: 1em;
+        padding-right: 1em;
+        padding-bottom: 1em;
+    }
+
+    .about-section-image {
+        width: 100vw;
+        padding-left: 2.5em;
+        padding-right: 2.5em;
+    }
+
+    .about-section-image img {
+        width: 100%;
+        height: 25em;
+    }
+
+    #contact h2 {
+        font-size: 3em;
+    }
+
+    .contact-data {
+        flex-direction: column;
+        font-size: 2em;
+    }
+
+    /*Gallery*/
+
+    .gallery {
+        grid-template-columns: repeat(1, 1fr);
+        row-gap: 1em;
+        margin-left: .5em;
+    }
+
+    .closeBtn{
+        font-size: 40px;
+    }
+
+    #footer {
+        font-size: 1em;
+    }
+
+    /*Breed*/
+
+    .breed-top-img{
+        width: 100%;
+    }
+
+    .breed-top-img img{
+        object-fit: contain;
+        height: 100%;
+    }
+
+    .breed-name{
+        font-size: 4em;
+        text-align: center;
+    }
+
+    .breed-basic-info{
+        font-size: 2.5em;
+    }
+
+    .breed-info-list{
+        column-count: 1;
+    }
+
+    .breed-info-list-item div img {
+        width: 2.5em;
+        margin-right: 1.5em;
+    }
+    
+    .breed-info-list-item div span {
+        font-size: 2em;
+        line-height: 2em;
+    }
+    
+    .breed-info-list-item div p {
+        font-size: 1.5em;
+        line-height: 1.5em;
+    }
+
+    .dog-list{
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    #dogs h2 {
+        font-size: 3em;
+        margin-bottom: 1em;
+    }
+
+    .dog span {
+        font-size: 2.5em;
+    }
+
+    /*Dog*/
+
+    .about-dog-img {
+        width: 100%;
+    }
+    
+    .about-dog-img img {
+        object-fit: contain;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .about-dog-text {
+        text-align: center;
+    }
+    
+    .dog-name {
+        font-size: 3em;
+        margin-bottom: .5em;
+    }
+
+    .by-judges-title {
+        font-size: 2.5em;
+        margin-bottom: .5em;
+    }
+    
+    .by-judges {
+        font-size: 2em;
+        line-height: 1.5em;
+    }
+}
