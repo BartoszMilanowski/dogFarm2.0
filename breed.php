@@ -6,11 +6,37 @@ require_once 'configure/db_connect.php';
 
 $breedId = $_GET['id'];
 
-$query = $db->prepare("SELECT * FROM breeds WHERE Id = :breedId");
-$query->bindParam(':breedId', $breedId);
-$query->execute();
+$breedQuery = $db->prepare("SELECT * FROM breeds WHERE Id = :breedId");
+$breedQuery->bindParam(':breedId', $breedId);
+$breedQuery->execute();
 
-$result = $query->fetch(PDO::FETCH_ASSOC);
+$breedResult = $breedQuery->fetch(PDO::FETCH_ASSOC);
+
+$dogsQuery = $db->prepare("SELECT * FROM dog WHERE breed_id = :breedId");
+$dogsQuery->bindParam(":breedId", $breedId);
+$dogsQuery->execute();
+$dogs = $dogsQuery->fetchAll();
+
+$maleDogs = array();
+$femaleDogs = array();
+$retiredDogs = array();
+
+foreach($dogs as $dog){
+    $dogCat = $dog["category"];
+    switch($dogCat){
+        case 1:
+            $maleDogs[] = $dog;
+            break;
+        case 2:
+            $femaleDogs[] = $dog;
+            break;
+        case 3:
+            $retiredDogs[] = $dog;
+            break;
+        default:
+            break;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -26,9 +52,9 @@ $result = $query->fetch(PDO::FETCH_ASSOC);
     <title>
         <?php
         if ($_SESSION['lang'] == 'pl') {
-            echo $result['name'] . ' - Z Krainy Narwi';
+            echo $breedResult['name'] . ' - Z Krainy Narwi';
         } else {
-            echo $result['name'] . ' - From the Land of the Narew';
+            echo $breedResult['name'] . ' - From the Land of the Narew';
         }
         ?>
     </title>
@@ -43,11 +69,11 @@ $result = $query->fetch(PDO::FETCH_ASSOC);
         </div>
         <div class="breed-top-text">
             <div class="breed-name">
-                <?= $result['name'] ?>
+                <?= $breedResult['name'] ?>
             </div>
             <div class="breed-basic-info">
                 <span>
-                    <?= $result['basic_info'] ?>
+                    <?= $breedResult['basic_info'] ?>
                 </span>
             </div>
         </div>
@@ -64,7 +90,7 @@ $result = $query->fetch(PDO::FETCH_ASSOC);
                         <?= $_SESSION['lang'] == 'pl' ? "Cechy charakteryzujące" : "Characteristic features" ?>
                     </span>
                     <p>
-                        <?= $result['dog_character'] ?>
+                        <?= $breedResult['dog_character'] ?>
                     </p>
                 </div>
             </li>
@@ -77,7 +103,7 @@ $result = $query->fetch(PDO::FETCH_ASSOC);
                         <?= $_SESSION['lang'] == 'pl' ? "Wygląd" : "Appearance" ?>
                     </span>
                     <p>
-                        <?= $result['appearance'] ?>
+                        <?= $breedResult['appearance'] ?>
                     </p>
                 </div>
             </li>
@@ -90,7 +116,7 @@ $result = $query->fetch(PDO::FETCH_ASSOC);
                         <?= $_SESSION['lang'] == 'pl' ? "Wielkość" : "Size" ?>
                     </span>
                     <p>
-                        <?= $result['size'] ?>
+                        <?= $breedResult['size'] ?>
                     </p>
                 </div>
             </li>
@@ -103,7 +129,7 @@ $result = $query->fetch(PDO::FETCH_ASSOC);
                         <?= $_SESSION['lang'] == 'pl' ? "Szata" : "Coat" ?>
                     </span>
                     <p>
-                        <?= $result['coat'] ?>
+                        <?= $breedResult['coat'] ?>
 
                     </p>
                 </div>
@@ -117,7 +143,7 @@ $result = $query->fetch(PDO::FETCH_ASSOC);
                         <?= $_SESSION['lang'] == 'pl' ? "Maść" : "Color" ?>
                     </span>
                     <p>
-                        <?= $result['ointment'] ?>
+                        <?= $breedResult['ointment'] ?>
 
                     </p>
                 </div>
@@ -131,7 +157,7 @@ $result = $query->fetch(PDO::FETCH_ASSOC);
                         <?= $_SESSION['lang'] == 'pl' ? "Głowa" : "Head" ?>
                     </span>
                     <p>
-                        <?= $result['head'] ?>
+                        <?= $breedResult['head'] ?>
 
                     </p>
                 </div>
@@ -145,7 +171,7 @@ $result = $query->fetch(PDO::FETCH_ASSOC);
                         <?= $_SESSION['lang'] == 'pl' ? "Szyja" : "Neck" ?>
                     </span>
                     <p>
-                        <?= $result['neck'] ?>
+                        <?= $breedResult['neck'] ?>
                     </p>
                 </div>
             </li>
@@ -158,7 +184,7 @@ $result = $query->fetch(PDO::FETCH_ASSOC);
                         <?= $_SESSION['lang'] == 'pl' ? "Oczy" : "Eyes" ?>
                     </span>
                     <p>
-                        <?= $result['eyes'] ?>
+                        <?= $breedResult['eyes'] ?>
                     </p>
                 </div>
             </li>
@@ -171,7 +197,7 @@ $result = $query->fetch(PDO::FETCH_ASSOC);
                         <?= $_SESSION['lang'] == 'pl' ? "Uszy" : "Ears" ?>
                     </span>
                     <p>
-                        <?= $result['ears'] ?>
+                        <?= $breedResult['ears'] ?>
                     </p>
                 </div>
             </li>
@@ -184,7 +210,7 @@ $result = $query->fetch(PDO::FETCH_ASSOC);
                         <?= $_SESSION['lang'] == 'pl' ? "Tułów" : "Body" ?>
                     </span>
                     <p>
-                        <?= $result['torso'] ?>
+                        <?= $breedResult['torso'] ?>
                     </p>
                 </div>
             </li>
@@ -197,7 +223,7 @@ $result = $query->fetch(PDO::FETCH_ASSOC);
                         <?= $_SESSION['lang'] == 'pl' ? "Kończyny przednie" : "Front legs" ?>
                     </span>
                     <p>
-                        <?= $result['forelimbs'] ?>
+                        <?= $breedResult['forelimbs'] ?>
                     </p>
                 </div>
             </li>
@@ -210,7 +236,7 @@ $result = $query->fetch(PDO::FETCH_ASSOC);
                         <?= $_SESSION['lang'] == 'pl' ? "Kończyny tylne" : "Back legs" ?>
                     </span>
                     <p>
-                        <?= $result['hind limbs'] ?>
+                        <?= $breedResult['hind limbs'] ?>
                     </p>
                 </div>
             </li>
@@ -223,7 +249,7 @@ $result = $query->fetch(PDO::FETCH_ASSOC);
                         <?= $_SESSION['lang'] == 'pl' ? "Ogon" : "Tail" ?>
                     </span>
                     <p>
-                        <?= $result['tail'] ?>
+                        <?= $breedResult['tail'] ?>
                     </p>
                 </div>
             </li>
@@ -236,7 +262,7 @@ $result = $query->fetch(PDO::FETCH_ASSOC);
                         <?= $_SESSION['lang'] == 'pl' ? "Temperament" : "Temperament" ?>
                     </span>
                     <p>
-                        <?= $result['temperament'] ?>
+                        <?= $breedResult['temperament'] ?>
                     </p>
                 </div>
             </li>
@@ -244,83 +270,69 @@ $result = $query->fetch(PDO::FETCH_ASSOC);
     </section>
     <!--Dogs-->
     <section id="dogs">
-        <h2>
-            <?= $_SESSION['lang'] == 'pl' ? "Psy" : "Male dogs" ?>
-        </h2>
-        <div class="dog-list">
-            <div class="dog">
-                <a href="dog.html">
-                    <img src="images/dog1.jpg" />
-                    <span>Hiro-Haruko Zandalle</span>
-                </a>
-            </div>
-            <div class="dog">
-                <a href="#">
-                    <img src="images/dog1.jpg" />
-                    <span>Hiro-Haruko Zandalle</span>
-                </a>
-            </div>
-            <div class="dog">
-                <a href="#">
-                    <img src="images/dog1.jpg" />
-                    <span>Hiro-Haruko Zandalle</span>
-                </a>
-            </div>
-        </div>
-        <h2>
-            <?= $_SESSION['lang'] == 'pl' ? "Suki" : "Female dogs" ?>
-        </h2>
-        <div class="dog-list">
-            <div class="dog">
-                <a href="#">
-                    <img src="images/dog1.jpg" />
-                    <span>Hiro-Haruko Zandalle</span>
-                </a>
-            </div>
-            <div class="dog">
-                <a href="#">
-                    <img src="images/dog1.jpg" />
-                    <span>Hiro-Haruko Zandalle</span>
-                </a>
-            </div>
-            <div class="dog">
-                <a href="#">
-                    <img src="images/dog1.jpg" />
-                    <span>Hiro-Haruko Zandalle</span>
-                </a>
-            </div>
-        </div>
-        <h2>
-            <?= $_SESSION['lang'] == 'pl' ? "Na emeryturze" : "Retired" ?>
-        </h2>
-        <div class="dog-list">
-            <div class="dog">
-                <a href="#">
-                    <img src="images/dog1.jpg" />
-                    <span>Hiro-Haruko Zandalle</span>
-                </a>
-            </div>
-            <div class="dog">
-                <a href="#">
-                    <img src="images/dog1.jpg" />
-                    <span>Hiro-Haruko Zandalle</span>
-                </a>
-            </div>
-            <div class="dog">
-                <a href="#">
-                    <img src="images/dog1.jpg" />
-                    <span>Hiro-Haruko Zandalle</span>
-                </a>
-            </div>
-            <div class="dog">
-                <a href="#">
-                    <img src="images/dog1.jpg" />
-                    <span>Hiro-Haruko Zandalle</span>
-                </a>
-            </div>
+        <?php 
+        if(sizeof($maleDogs) > 0){
+            if($_SESSION['lang'] = 'pl'){
+                echo "<h2>Psy</h2>";
+            } else {
+                echo "<h2>Male dogs</h2>";
+            }
 
-        </div>
+            echo '<div class="dog-list">';
+            foreach($maleDogs as $dog){
+echo <<<EOT
+                <div class="dog">
+                <a href="dog.php?id={$dog['Id']}">
+                    <img src="images/dog1.jpg" />
+                    <span>{$dog['dog_name']}</span>
+                </a>
+            </div>
+EOT;
+            }
+            echo '</div>';
+        }
 
+        if(sizeof($femaleDogs) > 0){
+            if($_SESSION['lang'] = 'pl'){
+                echo "<h2>Suki</h2>";
+            } else {
+                echo "<h2>Female dogs</h2>";
+            }
+
+            echo '<div class="dog-list">';
+            foreach($maleDogs as $dog){
+echo <<<EOT
+                <div class="dog">
+                <a href="dog.php?id={$dog['Id']}">
+                    <img src="images/dog1.jpg" />
+                    <span>{$dog['dog_name']}</span>
+                </a>
+            </div>
+EOT;
+            }
+            echo '</div>';
+        }
+        if(sizeof($retiredDogs) > 0){
+            if($_SESSION['lang'] = 'pl'){
+                echo "<h2>Na emeryturze</h2>";
+            } else {
+                echo "<h2>Retired dogs</h2>";
+            }
+
+            echo '<div class="dog-list">';
+            foreach($maleDogs as $dog){
+echo <<<EOT
+                <div class="dog">
+                <a href="dog.php?id={$dog['Id']}">
+                    <img src="images/dog1.jpg" />
+                    <span>{$dog['dog_name']}</span>
+                </a>
+            </div>
+EOT;
+            }
+            echo '</div>';
+        }
+        ?>
     </section>
     <!--Gallery-->
     <section id="about-gallery">
