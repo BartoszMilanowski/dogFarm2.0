@@ -1,9 +1,17 @@
 <?php
 
+session_start();
+
 $db_host = "localhost";
 $db_user = "root";
 $db_pass = "";
-$database = "ZKrainyNarwi";
+
+if($_SESSION['lang'] == 'pl'){
+    $database = "ZKrainyNarwi";
+
+} else{
+    $database = "ZKrainyNarwi_en";
+}
 
 try {
     $db = new PDO("mysql:host=$db_host;dbname=$database", $db_user, $db_pass);

@@ -1,6 +1,6 @@
 <!-- Navbar -->
 <nav class="navbar">
-    <a href="index.html">
+    <a href="index.php">
         <img class="navbar-logo" src="images/logo.png" />
     </a>
     <ul class="menu-list">

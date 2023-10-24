@@ -1,5 +1,6 @@
 <?php
 
+
 session_start();
 require_once 'configure/db_connect.php';
 
@@ -14,20 +15,15 @@ if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
     $_SESSION['lang'] = 'pl';
 }
 
-$mainQuery = "SELECT * FROM About WHERE Id = 1";
+$mainQuery = "SELECT * FROM about WHERE Id = 1";
 $result = $db->query($mainQuery);
 if ($result) {
     $row = $result->fetch();
     if ($row) {
-        if ($_SESSION['lang'] == 'pl') {
-            $motto = $row['motto'];
-            $motto_author = $row['motto_author'];
-            $about = $row['about_intro'];
-        } else {
-            $motto = $row['motto_en'];
-            $motto_author = $row['motto_author'];
-            $about = $row['about_intro_en'];
-        }
+        $motto = $row['motto'];
+        $motto_author = $row['motto_author'];
+        $about = $row['about_intro'];
+
     }
 }
 
@@ -44,7 +40,15 @@ if ($result) {
 
 
 
-    <title>Z Krainy Narwi demo</title>
+    <title>
+        <?php
+        if($_SESSION['lang'] == 'pl'){
+            echo 'Z Krainy Narwi - hodowla psów rasowych';
+        } else {
+            echo 'From the Land of the Narew - purebred dog breeding';
+        }
+        ?>
+    </title>
 </head>
 
 <body>
@@ -76,7 +80,7 @@ if ($result) {
                     <?= "{$motto}" ?>
                 </p>
                 <span class="author">
-                    <?= "{$motto_author}"?>
+                    <?= "{$motto_author}" ?>
                 </span>
             </div>
             <div class="motto-img-area">
@@ -92,13 +96,22 @@ if ($result) {
             </div>
             <div class="about-section-text">
                 <p>
-                    <?= "{$about}"?>
+                    <?= "{$about}" ?>
                 </p>
-                <a class="more-link" href="/about.html">Czytaj więcej &gt;&gt;</a>
+                <a class="more-link" href="about.php">
+                    <?php 
+                    if($_SESSION['lang'] == 'pl'){
+                        echo 'Czytaj więcej &gt;&gt;';
+                    } else {
+                        echo 'Read more &gt;&gt;';
+                    }
+                    ?>
+                    </a>
             </div>
         </div>
     </section>
     <?php include 'components/contact.php' ?>
     <?php include 'components/footer.php' ?>
 </body>
+
 </html>
