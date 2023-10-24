@@ -19,7 +19,11 @@ $breeds = $breedsQuery->fetchAll();
             </a></li>
             <?php
             foreach ($breeds as $breed) {
-                echo "<li><a class='menu-link' href='/breed.html'>{$breed['name']}</a></li>";
+                echo "<li><a
+                class='menu-link'
+                href='breed.php?id={$breed["Id"]}'>
+                {$breed['name']}
+                </a></li>";
             }
             ?>
         <li><a class="menu-link" href="index.php#contact">
