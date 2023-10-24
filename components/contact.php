@@ -16,7 +16,6 @@ $link_tel = "tel:" . $contactData["phone"];
 $link_mail = "mailto:" . $contactData["email"];
 $link_fb = $contactData['fb_link'];
 
-$db = null;
 
 ?>
 

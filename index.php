@@ -1,3 +1,38 @@
+<?php
+
+session_start();
+require_once 'configure/db_connect.php';
+
+if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+    $languages = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+    $preferred_lang = substr($languages, 0, 2);
+
+    $_SESSION['lang'] = $preferred_lang;
+
+
+} else {
+    $_SESSION['lang'] = 'pl';
+}
+
+$mainQuery = "SELECT * FROM About WHERE Id = 1";
+$result = $db->query($mainQuery);
+if ($result) {
+    $row = $result->fetch();
+    if ($row) {
+        if ($_SESSION['lang'] == 'pl') {
+            $motto = $row['motto'];
+            $motto_author = $row['motto_author'];
+            $about = $row['about_intro'];
+        } else {
+            $motto = $row['motto_en'];
+            $motto_author = $row['motto_author'];
+            $about = $row['about_intro_en'];
+        }
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -38,14 +73,11 @@
         <div class="motto-area">
             <div class="motto-text-area">
                 <p class="motto-text">
-                    "Jedynym całkowicie bezinteresownym przyjacielem,
-                    którego można mieć na tym interesownym świecie, takim,
-                    który nigdy Cię nie opuści, nigdy nie okaże się niewdzięcznym lub zdradzieckim, jest pies...
-                    Pocałuje rękę, która nie będzie mogła mu dać jeść, wyliże rany odniesione w starciu z brutalnościa
-                    świata...
-                    Kiedy wszyscy inni przyjaciele odejdą, on pozostanie"
+                    <?= "{$motto}" ?>
                 </p>
-                <span class="author">George G. Vest</span>
+                <span class="author">
+                    <?= "{$motto_author}"?>
+                </span>
             </div>
             <div class="motto-img-area">
                 <img class="motto-img" src="images/lagotto-main.jpg">
@@ -60,10 +92,7 @@
             </div>
             <div class="about-section-text">
                 <p>
-                    Hodowlę psów rasowych "Z Krainy Narwi" zapoczątkowała doskonała czekoladowa suczka rasy Labrador
-                    Retriever
-                    YES KANO TONGA Zandalle (SONIA) , która trafiła do nas w 1999 roku.
-                    Sezon wystawowy w latach 2000-2001 był dla SONI pełen sukcesów.
+                    <?= "{$about}"?>
                 </p>
                 <a class="more-link" href="/about.html">Czytaj więcej &gt;&gt;</a>
             </div>
@@ -72,5 +101,4 @@
     <?php include 'components/contact.php' ?>
     <?php include 'components/footer.php' ?>
 </body>
-
 </html>
