@@ -2,7 +2,6 @@
 session_start();
 require_once 'configure/db_connect.php';
 
-// $_SESSION['lang'] = 'en';
 
 $breedId = $_GET['id'];
 
@@ -272,7 +271,7 @@ foreach($dogs as $dog){
     <section id="dogs">
         <?php 
         if(sizeof($maleDogs) > 0){
-            if($_SESSION['lang'] = 'pl'){
+            if($_SESSION['lang'] == 'pl'){
                 echo "<h2>Psy</h2>";
             } else {
                 echo "<h2>Male dogs</h2>";
@@ -282,7 +281,7 @@ foreach($dogs as $dog){
             foreach($maleDogs as $dog){
 echo <<<EOT
                 <div class="dog">
-                <a href="dog.php?id={$dog['Id']}">
+                <a href='dog.php?id={$dog["Id"]}'>
                     <img src="images/dog1.jpg" />
                     <span>{$dog['dog_name']}</span>
                 </a>
@@ -293,7 +292,7 @@ EOT;
         }
 
         if(sizeof($femaleDogs) > 0){
-            if($_SESSION['lang'] = 'pl'){
+            if($_SESSION['lang'] == 'pl'){
                 echo "<h2>Suki</h2>";
             } else {
                 echo "<h2>Female dogs</h2>";
@@ -303,7 +302,7 @@ EOT;
             foreach($maleDogs as $dog){
 echo <<<EOT
                 <div class="dog">
-                <a href="dog.php?id={$dog['Id']}">
+                <a href='dog.php?id={$dog["Id"]}'>
                     <img src="images/dog1.jpg" />
                     <span>{$dog['dog_name']}</span>
                 </a>
@@ -313,7 +312,7 @@ EOT;
             echo '</div>';
         }
         if(sizeof($retiredDogs) > 0){
-            if($_SESSION['lang'] = 'pl'){
+            if($_SESSION['lang'] == 'pl'){
                 echo "<h2>Na emeryturze</h2>";
             } else {
                 echo "<h2>Retired dogs</h2>";
@@ -323,7 +322,7 @@ EOT;
             foreach($maleDogs as $dog){
 echo <<<EOT
                 <div class="dog">
-                <a href="dog.php?id={$dog['Id']}">
+                <a href='dog.php?id={$dog["Id"]}'>
                     <img src="images/dog1.jpg" />
                     <span>{$dog['dog_name']}</span>
                 </a>
@@ -337,7 +336,7 @@ EOT;
     <!--Gallery-->
     <section id="about-gallery">
         <h2>
-            <?= $_SESSION['lang'] == 'pl' ? "Galeria" : "Gallery" ?>
+        <?= $_SESSION['lang'] == 'pl' ? 'Galeria' : "Gallery" ?>
         </h2>
         <div class="gallery">
             <div class="gallery-item">

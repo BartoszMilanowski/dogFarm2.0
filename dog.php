@@ -1,14 +1,18 @@
 <?php
 session_start();
+
 require_once 'configure/db_connect.php';
+
+
 
 $dogId = $_GET['id'];
 
-$query = $db->prepare("SELECT * FROM dogs WHERE Id = :dogId");
-$query->bindParam(':dogId', $dogId);
-$query->execute();
+$dogQuery = $db->prepare("SELECT * FROM dog WHERE Id = :dogId");
+$dogQuery->bindParam(':dogId', $dogId);
+$dogQuery->execute();
 
-$result = $query->fetch(PDO::FETCH_ASSOC);
+$dogResult = $dogQuery->fetch(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +25,15 @@ $result = $query->fetch(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <title> Labrador Retriever - Z Krainy Narwi demo</title>
+    <title>
+        <?php
+        if ($_SESSION['lang'] == 'pl') {
+            echo $dogResult['dog_name'] . ' - Z Krainy Narwi';
+        } else {
+            echo $dogResult['dog_name'] . ' - From the Land of the Narew';
+        }
+        ?>
+    </title>
 </head>
 
 <body>
@@ -33,11 +45,13 @@ $result = $query->fetch(PDO::FETCH_ASSOC);
                 <img src="images/dog1.jpg" />
             </div>
             <div class="about-dog-text">
-                <span class="dog-name">Hiro-Haruko Zandalle</span>
-                <span class="by-judges-title">W oczach sędziów</span>
-                <p class="by-judges">Głowa doskonała, o szlachetnym wyrazie, proporcjonalnie zbudowany, prawidłowe
-                    kątowanie kończyn,
-                    dobra pigmentacja oka, dobrze osadzony ogon, doskonały w ruchu.</p>
+                <span class="dog-name"><?= $dogResult['dog_name']?></span>
+                <span class="by-judges-title">
+                    <?= $_SESSION['lang'] == 'pl' ? "W oczach sedziów" : "In the eyes of the judges"?>
+                </span>
+                <p class="by-judges">
+                    <?= $dogResult['about']?>
+                </p>
             </div>
         </div>
     </section>
