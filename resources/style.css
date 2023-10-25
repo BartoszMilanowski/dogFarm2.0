@@ -55,7 +55,7 @@ a {
     position: relative;
     display: flex;
     width: 55%;
-    justify-content: space-around;
+    justify-content: flex-end;
     align-items: center;
 }
 
@@ -63,7 +63,7 @@ a {
     text-decoration: none;
     font-size: 20px;
     position: relative;
-    padding: .2em;
+    padding: 1em;
     color: black;
 }
 
@@ -108,7 +108,7 @@ a {
 }
 
 .slide img {
-    width: 100%;
+    width: 100vw;
     height: 100vh;
 }
 

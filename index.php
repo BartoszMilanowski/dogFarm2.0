@@ -27,6 +27,9 @@ if ($result) {
     }
 }
 
+$breedQuery = $db->prepare('SELECT Id, name, main_photo_link  FROM breeds');
+$breedQuery->execute();
+$breedList = $breedQuery->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +45,7 @@ if ($result) {
 
     <title>
         <?php
-        if($_SESSION['lang'] == 'pl'){
+        if ($_SESSION['lang'] == 'pl') {
             echo 'Z Krainy Narwi - hodowla psów rasowych';
         } else {
             echo 'From the Land of the Narew - purebred dog breeding';
@@ -54,7 +57,24 @@ if ($result) {
 <body>
     <?php include 'components/navbar.php' ?>
     <!-- Slideshow -->
-    <section id="slideshow">
+    <?php
+    if(sizeof($breedList) > 0){
+        echo '<section id="slideshow">';
+        foreach($breedList as $breed){
+            echo <<<EOT
+            <div class="slide">
+                <img src="{$breed['main_photo_link']}"/>
+                <div class="capture-text">
+                    <a href="breed.php?id={$breed['Id']}">{$breed['name']}</a>
+                </div>
+            </div>
+            EOT;
+        }
+        echo '</section>';
+    }
+ 
+    ?>
+    <!-- <section id="slideshow">
         <div class="slide">
             <img src="images/labrador-main.jpg">
             <div class="capture-text"><a href="/labrador.html">Labrador Retriever</a></div>
@@ -71,7 +91,7 @@ if ($result) {
             <img src="images/chiuahua-main.jpg">
             <div class="capture-text"><a href="#">Chiuahua</a></div>
         </div>
-    </section>
+    </section> -->
     <!--Motto-->
     <section id="motto">
         <div class="motto-area">
@@ -99,14 +119,14 @@ if ($result) {
                     <?= "{$about}" ?>
                 </p>
                 <a class="more-link" href="about.php">
-                    <?php 
-                    if($_SESSION['lang'] == 'pl'){
+                    <?php
+                    if ($_SESSION['lang'] == 'pl') {
                         echo 'Czytaj więcej &gt;&gt;';
                     } else {
                         echo 'Read more &gt;&gt;';
                     }
                     ?>
-                    </a>
+                </a>
             </div>
         </div>
     </section>
