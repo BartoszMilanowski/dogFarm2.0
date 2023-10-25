@@ -16,13 +16,27 @@ $dogsQuery->bindParam(":breedId", $breedId);
 $dogsQuery->execute();
 $dogs = $dogsQuery->fetchAll();
 
+$mainPhotoQuery = $db->prepare("SELECT * FROM images WHERE id = :mainPhotoId AND is_main = 1");
+$mainPhotoQuery->bindParam(":mainPhotoId", $breedResult['main_photo']);
+$mainPhotoQuery->execute();
+$mainPhoto = $mainPhotoQuery->fetch();
+
+$galleryQuery = $db->prepare("SELECT i.*
+FROM images AS i
+INNER JOIN photo_gallery AS pg ON i.Id = pg.photo_id
+WHERE pg.gallery_type = 1 AND pg.gallery_id = :galleryId");
+$galleryQuery->bindParam(":galleryId", $breedId);
+$galleryQuery->execute();
+$gallery = $galleryQuery->fetchAll();
+
+
 $maleDogs = array();
 $femaleDogs = array();
 $retiredDogs = array();
 
-foreach($dogs as $dog){
+foreach ($dogs as $dog) {
     $dogCat = $dog["category"];
-    switch($dogCat){
+    switch ($dogCat) {
         case 1:
             $maleDogs[] = $dog;
             break;
@@ -64,7 +78,8 @@ foreach($dogs as $dog){
     <!--Breed basics-->
     <section id="breed-top">
         <div class="breed-top-img">
-            <img src="images/labrador-main.jpg" />
+            <img src=<?= "{$mainPhoto['link']}" ?> alt=<?= "{$mainPhoto['alt']}" ?> />
+            <!-- <img src="images/labrador-main.jpg" /> -->
         </div>
         <div class="breed-top-text">
             <div class="breed-name">
@@ -82,7 +97,7 @@ foreach($dogs as $dog){
         <ul class="breed-info-list">
             <li class="breed-info-list-item">
                 <div>
-                    <img src="images/pawprint.png" />
+                    <img src="images/icons/pawprint.png" />
                 </div>
                 <div>
                     <span>
@@ -95,7 +110,7 @@ foreach($dogs as $dog){
             </li>
             <li class="breed-info-list-item">
                 <div>
-                    <img src="images/pawprint.png" />
+                    <img src="images/icons/pawprint.png" />
                 </div>
                 <div>
                     <span>
@@ -108,7 +123,7 @@ foreach($dogs as $dog){
             </li>
             <li class="breed-info-list-item">
                 <div>
-                    <img src="images/pawprint.png" />
+                    <img src="images/icons/pawprint.png" />
                 </div>
                 <div>
                     <span>
@@ -121,7 +136,7 @@ foreach($dogs as $dog){
             </li>
             <li class="breed-info-list-item">
                 <div>
-                    <img src="images/pawprint.png" />
+                    <img src="images/icons/pawprint.png" />
                 </div>
                 <div>
                     <span>
@@ -135,7 +150,7 @@ foreach($dogs as $dog){
             </li>
             <li class="breed-info-list-item">
                 <div>
-                    <img src="images/pawprint.png" />
+                    <img src="images/icons/pawprint.png" />
                 </div>
                 <div>
                     <span>
@@ -149,7 +164,7 @@ foreach($dogs as $dog){
             </li>
             <li class="breed-info-list-item">
                 <div>
-                    <img src="images/pawprint.png" />
+                    <img src="images/icons/pawprint.png" />
                 </div>
                 <div>
                     <span>
@@ -163,7 +178,7 @@ foreach($dogs as $dog){
             </li>
             <li class="breed-info-list-item">
                 <div>
-                    <img src="images/pawprint.png" />
+                    <img src="images/icons/pawprint.png" />
                 </div>
                 <div>
                     <span>
@@ -176,7 +191,7 @@ foreach($dogs as $dog){
             </li>
             <li class="breed-info-list-item">
                 <div>
-                    <img src="images/pawprint.png" />
+                    <img src="images/icons/pawprint.png" />
                 </div>
                 <div>
                     <span>
@@ -189,7 +204,7 @@ foreach($dogs as $dog){
             </li>
             <li class="breed-info-list-item">
                 <div>
-                    <img src="images/pawprint.png" />
+                    <img src="images/icons/pawprint.png" />
                 </div>
                 <div>
                     <span>
@@ -202,7 +217,7 @@ foreach($dogs as $dog){
             </li>
             <li class="breed-info-list-item">
                 <div>
-                    <img src="images/pawprint.png" />
+                    <img src="images/icons/pawprint.png" />
                 </div>
                 <div>
                     <span>
@@ -215,7 +230,7 @@ foreach($dogs as $dog){
             </li>
             <li class="breed-info-list-item">
                 <div>
-                    <img src="images/pawprint.png" />
+                    <img src="images/icons/pawprint.png" />
                 </div>
                 <div>
                     <span>
@@ -228,7 +243,7 @@ foreach($dogs as $dog){
             </li>
             <li class="breed-info-list-item">
                 <div>
-                    <img src="images/pawprint.png" />
+                    <img src="images/icons/pawprint.png" />
                 </div>
                 <div>
                     <span>
@@ -241,7 +256,7 @@ foreach($dogs as $dog){
             </li>
             <li class="breed-info-list-item">
                 <div>
-                    <img src="images/pawprint.png" />
+                    <img src="images/icons/pawprint.png" />
                 </div>
                 <div>
                     <span>
@@ -254,7 +269,7 @@ foreach($dogs as $dog){
             </li>
             <li class="breed-info-list-item">
                 <div>
-                    <img src="images/pawprint.png" />
+                    <img src="images/icons/pawprint.png" />
                 </div>
                 <div>
                     <span>
@@ -269,96 +284,94 @@ foreach($dogs as $dog){
     </section>
     <!--Dogs-->
     <section id="dogs">
-        <?php 
-        if(sizeof($maleDogs) > 0){
-            if($_SESSION['lang'] == 'pl'){
+        <?php
+        if (sizeof($maleDogs) > 0) {
+            if ($_SESSION['lang'] == 'pl') {
                 echo "<h2>Psy</h2>";
             } else {
                 echo "<h2>Male dogs</h2>";
             }
 
             echo '<div class="dog-list">';
-            foreach($maleDogs as $dog){
-echo <<<EOT
+            foreach ($maleDogs as $dog) {
+                echo <<<EOT
                 <div class="dog">
-                <a href='dog.php?id={$dog["Id"]}'>
-                    <img src="images/dog1.jpg" />
-                    <span>{$dog['dog_name']}</span>
-                </a>
-            </div>
-EOT;
+                    <a href='dog.php?id={$dog["Id"]}'>
+                        <img src="images/dog1.jpg" />
+                        <span>{$dog['dog_name']}</span>
+                    </a>
+                </div>
+                EOT;
             }
             echo '</div>';
         }
 
-        if(sizeof($femaleDogs) > 0){
-            if($_SESSION['lang'] == 'pl'){
+        if (sizeof($femaleDogs) > 0) {
+            if ($_SESSION['lang'] == 'pl') {
                 echo "<h2>Suki</h2>";
             } else {
                 echo "<h2>Female dogs</h2>";
             }
 
             echo '<div class="dog-list">';
-            foreach($maleDogs as $dog){
-echo <<<EOT
+            foreach ($maleDogs as $dog) {
+                echo <<<EOT
                 <div class="dog">
-                <a href='dog.php?id={$dog["Id"]}'>
-                    <img src="images/dog1.jpg" />
-                    <span>{$dog['dog_name']}</span>
-                </a>
-            </div>
-EOT;
+                    <a href='dog.php?id={$dog["Id"]}'>
+                        <img src="images/dog1.jpg" />
+                        <span>{$dog['dog_name']}</span>
+                    </a>
+                </div>
+                EOT;
             }
             echo '</div>';
         }
-        if(sizeof($retiredDogs) > 0){
-            if($_SESSION['lang'] == 'pl'){
+        if (sizeof($retiredDogs) > 0) {
+            if ($_SESSION['lang'] == 'pl') {
                 echo "<h2>Na emeryturze</h2>";
             } else {
                 echo "<h2>Retired dogs</h2>";
             }
 
             echo '<div class="dog-list">';
-            foreach($maleDogs as $dog){
-echo <<<EOT
+            foreach ($maleDogs as $dog) {
+                echo <<<EOT
                 <div class="dog">
-                <a href='dog.php?id={$dog["Id"]}'>
-                    <img src="images/dog1.jpg" />
-                    <span>{$dog['dog_name']}</span>
-                </a>
-            </div>
-EOT;
+                    <a href='dog.php?id={$dog["Id"]}'>
+                        <img src="images/dog1.jpg" />
+                        <span>{$dog['dog_name']}</span>
+                    </a>
+                </div>
+                EOT;
             }
             echo '</div>';
         }
         ?>
     </section>
     <!--Gallery-->
-    <section id="about-gallery">
-        <h2>
-        <?= $_SESSION['lang'] == 'pl' ? 'Galeria' : "Gallery" ?>
-        </h2>
-        <div class="gallery">
+    <?php
+    if (sizeof($gallery) > 0) {
+        echo '<section id="about-gallery">';
+        if ($_SESSION['lang'] == 'pl') {
+            echo '<h2>Galeria</h2>';
+        } else {
+            echo '<h2>Gallery</h2>';
+        }
+
+        echo '<div class="gallery">';
+        foreach ($gallery as $item) {
+            echo <<< EOT
             <div class="gallery-item">
-                <img src="images/labrador-main.jpg" />
+                <img src="{$item['link']}" />
             </div>
-            <div class="gallery-item">
-                <img src="images/lagotto-main.jpg" />
-            </div>
-            <div class="gallery-item">
-                <img src="images/labrador-chocolate.jpg" />
-            </div>
-            <div class="gallery-item">
-                <img src="images/labrador2.jpg" />
-            </div>
-            <div class="gallery-item">
-                <img src="images/bichon-main.jpg" />
-            </div>
-            <div class="gallery-item">
-                <img src="images/chiuahua-main.jpg" />
-            </div>
+            EOT;
+        }
+        echo <<< EOT
         </div>
-    </section>
+        </section>
+        EOT;
+    }
+    ?>
     <?php include 'components/contact.php' ?>
     <?php include 'components/footer.php' ?>
 </body>

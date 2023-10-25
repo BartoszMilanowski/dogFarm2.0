@@ -38,6 +38,6 @@ $link_fb = $contactData['fb_link'];
         <span><a href="<?= $link_mail ?>">
                 <?= "{$contactData['email']}" ?>
             </a></span>
-        <span><a href="<?= $link_fb ?>" target="_blank"><img class="sm-icon" src="images/facebook.png"></a></span>
+        <span><a href="<?= $link_fb ?>" target="_blank"><img class="sm-icon" src="images/icons/facebook.png"></a></span>
     </div>
 </section>
