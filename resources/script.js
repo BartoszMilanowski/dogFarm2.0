@@ -79,6 +79,4 @@ const toggleMenu = () => {
     closeBtn.onclick = () => {
         menu.style.display = 'none';
     }
-
-
 }

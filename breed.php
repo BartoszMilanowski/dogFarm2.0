@@ -78,8 +78,7 @@ foreach ($dogs as $dog) {
     <!--Breed basics-->
     <section id="breed-top">
         <div class="breed-top-img">
-            <img src=<?= "{$mainPhoto['link']}" ?> alt=<?= "{$mainPhoto['alt']}" ?> />
-            <!-- <img src="images/labrador-main.jpg" /> -->
+            <img src=<?= "{$breedResult['main_photo_link']}" ?> />
         </div>
         <div class="breed-top-text">
             <div class="breed-name">

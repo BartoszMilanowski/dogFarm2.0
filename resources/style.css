@@ -57,6 +57,7 @@ a {
     width: 55%;
     justify-content: flex-end;
     align-items: center;
+    padding-right: .5em;
 }
 
 .menu-link {
@@ -83,6 +84,10 @@ a {
     width: 100%;
 }
 
+.lang-icon{
+    width:2em;
+}
+
 
 .burger-icon {
     display: none;
@@ -104,7 +109,7 @@ a {
     width: 100vw;
     height: 100vh;
     display: flex;
-    animation: slide 20s infinite;
+    overflow-y: hidden;
 }
 
 .slide img {

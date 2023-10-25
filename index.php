@@ -4,15 +4,17 @@
 session_start();
 require_once 'configure/db_connect.php';
 
-if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-    $languages = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
-    $preferred_lang = substr($languages, 0, 2);
+if (!isset($_SESSION['lang_by_user'])) {
+    if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+        $languages = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+        $preferred_lang = substr($languages, 0, 2);
 
-    $_SESSION['lang'] = $preferred_lang;
+        $_SESSION['lang'] = $preferred_lang;
 
 
-} else {
-    $_SESSION['lang'] = 'pl';
+    } else {
+        $_SESSION['lang'] = 'pl';
+    }
 }
 
 $mainQuery = "SELECT * FROM about WHERE Id = 1";
@@ -58,9 +60,9 @@ $breedList = $breedQuery->fetchAll();
     <?php include 'components/navbar.php' ?>
     <!-- Slideshow -->
     <?php
-    if(sizeof($breedList) > 0){
+    if (sizeof($breedList) > 0) {
         echo '<section id="slideshow">';
-        foreach($breedList as $breed){
+        foreach ($breedList as $breed) {
             echo <<<EOT
             <div class="slide">
                 <img src="{$breed['main_photo_link']}"/>
@@ -72,7 +74,7 @@ $breedList = $breedQuery->fetchAll();
         }
         echo '</section>';
     }
- 
+
     ?>
     <!-- <section id="slideshow">
         <div class="slide">
