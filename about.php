@@ -10,8 +10,16 @@ if ($result) {
     if ($row) {
         $intro = $row['about_intro'];
         $main = $row ['about_main'];
+        $mainPhoto = $row['about_image'];
     }
 }
+
+$galleryQuery = $db->prepare("SELECT i.*
+FROM images AS i
+INNER JOIN photo_gallery AS pg ON i.Id = pg.photo_id
+WHERE pg.gallery_type = 3 AND pg.gallery_id = 1");
+$galleryQuery->execute();
+$gallery = $galleryQuery->fetchAll();
 
 ?>
 
@@ -41,7 +49,7 @@ if ($result) {
     <section id="about-page">
         <div class="about-page-first">
             <div class="about-page-image">
-                <img src="images/labrador-chocolate.jpg">
+                <img src= <?= "{$mainPhoto}" ?> />
             </div>
             <div class="about-page-text-first">
                 <p>
@@ -55,28 +63,28 @@ if ($result) {
         </div>
     </section>
     <!--Gallery-->
-    <section id="about-gallery">
-        <div class="gallery">
-            <div class="gallery-item">
-                <img src="images/labrador-main.jpg" />
-            </div>
-            <div class="gallery-item">
-                <img src="images/lagotto-main.jpg" />
-            </div>
-            <div class="gallery-item">
-                <img src="images/labrador-chocolate.jpg" />
-            </div>
-            <div class="gallery-item">
-                <img src="images/labrador2.jpg" />
-            </div>
-            <div class="gallery-item">
-                <img src="images/bichon-main.jpg" />
-            </div>
-            <div class="gallery-item">
-                <img src="images/chiuahua-main.jpg" />
-            </div>
-        </div>
-    </section>
+
+    <?php
+
+    if(sizeof($gallery) > 0){
+        echo<<<EOT
+            <section id="about-gallery">
+                <div class="gallery">
+        EOT;
+        foreach($gallery as $item){
+            echo<<<EOT
+                <div class="gallery-item">
+                    <img src="{$item['link']}" />
+                </div>
+            EOT;
+        }
+        echo<<<EOT
+                </div>
+            </section>
+        EOT;
+    }
+    ?>
+
     <?php include 'components/contact.php' ?>
     <?php include 'components/footer.php' ?>
 </body>
