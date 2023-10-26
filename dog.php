@@ -10,8 +10,15 @@ $dogId = $_GET['id'];
 $dogQuery = $db->prepare("SELECT * FROM dog WHERE Id = :dogId");
 $dogQuery->bindParam(':dogId', $dogId);
 $dogQuery->execute();
-
 $dogResult = $dogQuery->fetch(PDO::FETCH_ASSOC);
+
+$galleryQuery = $db->prepare('SELECT i.*
+FROM images i
+INNER JOIN photo_gallery pg ON i.Id = pg.photo_id
+WHERE pg.gallery_type = 2 AND pg.gallery_id = :dogId');
+$galleryQuery->bindParam(':dogId', $dogId);
+$galleryQuery->execute();
+$gallery = $galleryQuery->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -37,12 +44,11 @@ $dogResult = $dogQuery->fetch(PDO::FETCH_ASSOC);
 </head>
 
 <body>
-    <!-- Navbar -->
     <?php include 'components/navbar.php' ?>
     <section id="about-dog">
         <div class="about-dog">
             <div class="about-dog-img">
-                <img src="images/dog1.jpg" />
+                <img src=<?= $dogResult['main_photo']?> />
             </div>
             <div class="about-dog-text">
                 <span class="dog-name"><?= $dogResult['dog_name']?></span>
@@ -56,7 +62,30 @@ $dogResult = $dogQuery->fetch(PDO::FETCH_ASSOC);
         </div>
     </section>
     <!--Gallery-->
-    <section id="about-gallery">
+
+    <?php 
+
+    if(sizeof($gallery) > 0){
+        echo<<<EOT
+            <section id="about-gallery">
+                <div class="gallery">
+        EOT;
+        foreach($gallery as $item) {
+            echo<<<EOT
+                <div class="gallery-item">
+                    <img src="{$item['link']}" />
+                </div>
+            EOT;
+        }
+
+        echo<<<EOT
+                </div>
+            </section>
+        EOT;
+    }
+    ?>
+
+    <!-- <section id="about-gallery">
         <div class="gallery">
             <div class="gallery-item">
                 <img src="images/labrador-main.jpg" />
@@ -77,7 +106,7 @@ $dogResult = $dogQuery->fetch(PDO::FETCH_ASSOC);
                 <img src="images/chiuahua-main.jpg" />
             </div>
         </div>
-    </section>
+    </section> -->
     <?php include 'components/contact.php' ?>
     <?php include 'components/footer.php' ?>
 </body>

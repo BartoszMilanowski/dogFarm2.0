@@ -496,24 +496,23 @@ a {
 
 /*About dog*/
 
-#about-dog {
-    margin-top: 12vh;
-    margin-bottom: 3em;
-}
-
 .about-dog {
     display: flex;
     width: 100%;
+    margin-top: 12vh;
 }
 
 .about-dog-img {
     display: flex;
-    justify-content: center;
     width: 50%;
+    justify-content: center;
 }
 
 .about-dog-img img {
+    object-fit: cover;
     border-radius: 15px;
+    width: 90%;
+    height: 50em;
 }
 
 .about-dog-text {
@@ -537,6 +536,7 @@ a {
 .by-judges {
     font-size: 3.5em;
     line-height: 1.5em;
+    text-align: center;
 }
 
 /*Media queries*/
