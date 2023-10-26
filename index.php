@@ -25,6 +25,8 @@ if ($result) {
         $motto = $row['motto'];
         $motto_author = $row['motto_author'];
         $about = $row['about_intro'];
+        $motto_image = $row['motto_image'];
+        $about_image = $row['about_image'];
 
     }
 }
@@ -76,24 +78,6 @@ $breedList = $breedQuery->fetchAll();
     }
 
     ?>
-    <!-- <section id="slideshow">
-        <div class="slide">
-            <img src="images/labrador-main.jpg">
-            <div class="capture-text"><a href="/labrador.html">Labrador Retriever</a></div>
-        </div>
-        <div class="slide">
-            <img src="images/bichon-main.jpg">
-            <div class="capture-text"><a href="#">Bichon Frise</a></div>
-        </div>
-        <div class="slide">
-            <img src="images/lagotto-main.jpg">
-            <div class="capture-text"><a href="#">Lagotto Romangolo</a></div>
-        </div>
-        <div class="slide">
-            <img src="images/chiuahua-main.jpg">
-            <div class="capture-text"><a href="#">Chiuahua</a></div>
-        </div>
-    </section> -->
     <!--Motto-->
     <section id="motto">
         <div class="motto-area">
@@ -106,7 +90,7 @@ $breedList = $breedQuery->fetchAll();
                 </span>
             </div>
             <div class="motto-img-area">
-                <img class="motto-img" src="images/lagotto-main.jpg">
+                <img class="motto-img" src=<?= "{$motto_image}"?> />
             </div>
         </div>
     </section>
@@ -114,7 +98,7 @@ $breedList = $breedQuery->fetchAll();
     <section id="about">
         <div class="about-section">
             <div class="about-section-image">
-                <img src="images/labrador-chocolate.jpg">
+                <img src=<?= "{$about_image}"?> />
             </div>
             <div class="about-section-text">
                 <p>
