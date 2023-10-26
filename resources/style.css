@@ -64,7 +64,8 @@ a {
     text-decoration: none;
     font-size: 20px;
     position: relative;
-    padding: 1em;
+    padding: .5em;
+    padding-bottom: .2em;
     color: black;
 }
 
@@ -86,6 +87,7 @@ a {
 
 .lang-icon{
     width:2em;
+    margin-left: 1em;
 }
 
 
@@ -189,10 +191,8 @@ a {
 }
 
 .more-link {
-    padding-left: 8px;
-    padding-right: 8px;
     position: relative;
-    padding: .2em;
+    padding-bottom: .2em;
 }
 
 .more-link::after {
@@ -646,6 +646,9 @@ a {
     }
 
     .menu-link{
+        display: flex;
+        width: 100%;
+        text-align: right;
         font-size: 3.5em;
     }
 
