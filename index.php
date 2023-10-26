@@ -17,35 +17,20 @@ if (!isset($_SESSION['lang_by_user'])) {
     }
 }
 
-$mainQuery = "SELECT * FROM about WHERE Id = 1";
-$result = $db->query($mainQuery);
-if ($result) {
-    $row = $result->fetch();
-    if ($row) {
-        $motto = $row['motto'];
-        $motto_author = $row['motto_author'];
-        $about = $row['about_intro'];
-        $motto_image = $row['motto_image'];
-        $about_image = $row['about_image'];
-
-    }
-}
+$mainQuery = $db->prepare('SELECT * FROM about WHERE Id = 1');
+$mainQuery->execute();
+$main = $mainQuery->fetch(PDO::FETCH_ASSOC);
 
 $breedQuery = $db->prepare('SELECT Id, name, main_photo_link  FROM breeds');
 $breedQuery->execute();
-$breedList = $breedQuery->fetchAll();
+$breedList = $breedQuery->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
 <html lang="pl">
 
 <head>
-    <meta charset="utf-8">
-    <script async src="https://kit.fontawesome.com/6cc05e1e8e.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="resources/style.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
+    <?php include 'configure/head.php'?>
 
     <title>
         <?php
@@ -83,14 +68,14 @@ $breedList = $breedQuery->fetchAll();
         <div class="motto-area">
             <div class="motto-text-area">
                 <p class="motto-text">
-                    <?= "{$motto}" ?>
+                    <?= "{$main['motto']}" ?>
                 </p>
                 <span class="author">
-                    <?= "{$motto_author}" ?>
+                    <?= "{$main['motto_author']}" ?>
                 </span>
             </div>
             <div class="motto-img-area">
-                <img class="motto-img" src=<?= "{$motto_image}"?> />
+                <img class="motto-img" src=<?= "{$main['motto_image']}"?> />
             </div>
         </div>
     </section>
@@ -98,11 +83,11 @@ $breedList = $breedQuery->fetchAll();
     <section id="about">
         <div class="about-section">
             <div class="about-section-image">
-                <img src=<?= "{$about_image}"?> />
+                <img src=<?= "{$main['about_image']}"?> />
             </div>
             <div class="about-section-text">
                 <p>
-                    <?= "{$about}" ?>
+                    <?= "{$main['about_intro']}" ?>
                 </p>
                 <a class="more-link" href="about.php">
                     <?php

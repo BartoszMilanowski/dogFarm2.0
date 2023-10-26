@@ -13,9 +13,9 @@ $dogQuery->execute();
 $dogResult = $dogQuery->fetch(PDO::FETCH_ASSOC);
 
 $galleryQuery = $db->prepare('SELECT i.*
-FROM images i
-INNER JOIN photo_gallery pg ON i.Id = pg.photo_id
-WHERE pg.gallery_type = 2 AND pg.gallery_id = :dogId');
+                                FROM images i
+                                INNER JOIN photo_gallery pg ON i.Id = pg.photo_id
+                                WHERE pg.gallery_type = 2 AND pg.gallery_id = :dogId');
 $galleryQuery->bindParam(':dogId', $dogId);
 $galleryQuery->execute();
 $gallery = $galleryQuery->fetchAll(PDO::FETCH_ASSOC);
@@ -26,11 +26,7 @@ $gallery = $galleryQuery->fetchAll(PDO::FETCH_ASSOC);
 <html lang="pl">
 
 <head>
-    <meta charset="utf-8">
-    <script async src="https://kit.fontawesome.com/6cc05e1e8e.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="resources/style.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <?php include 'configure/head.php'?>
 
     <title>
         <?php

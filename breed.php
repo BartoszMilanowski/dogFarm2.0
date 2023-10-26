@@ -8,26 +8,20 @@ $breedId = $_GET['id'];
 $breedQuery = $db->prepare("SELECT * FROM breeds WHERE Id = :breedId");
 $breedQuery->bindParam(':breedId', $breedId);
 $breedQuery->execute();
-
 $breedResult = $breedQuery->fetch(PDO::FETCH_ASSOC);
 
 $dogsQuery = $db->prepare("SELECT * FROM dog WHERE breed_id = :breedId");
 $dogsQuery->bindParam(":breedId", $breedId);
 $dogsQuery->execute();
-$dogs = $dogsQuery->fetchAll();
-
-$mainPhotoQuery = $db->prepare("SELECT * FROM images WHERE id = :mainPhotoId AND is_main = 1");
-$mainPhotoQuery->bindParam(":mainPhotoId", $breedResult['main_photo']);
-$mainPhotoQuery->execute();
-$mainPhoto = $mainPhotoQuery->fetch();
+$dogs = $dogsQuery->fetchAll(PDO::FETCH_ASSOC);
 
 $galleryQuery = $db->prepare("SELECT i.*
-FROM images AS i
-INNER JOIN photo_gallery AS pg ON i.Id = pg.photo_id
-WHERE pg.gallery_type = 1 AND pg.gallery_id = :galleryId");
+                                FROM images i
+                                INNER JOIN photo_gallery pg ON i.Id = pg.photo_id
+                                WHERE pg.gallery_type = 1 AND pg.gallery_id = :galleryId");
 $galleryQuery->bindParam(":galleryId", $breedId);
 $galleryQuery->execute();
-$gallery = $galleryQuery->fetchAll();
+$gallery = $galleryQuery->fetchAll(PDO::FETCH_ASSOC);
 
 
 $maleDogs = array();
@@ -56,11 +50,7 @@ foreach ($dogs as $dog) {
 <html lang="pl">
 
 <head>
-    <meta charset="utf-8">
-    <script async src="https://kit.fontawesome.com/6cc05e1e8e.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="resources/style.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <?php include 'configure/head.php'?>
 
     <title>
         <?php
