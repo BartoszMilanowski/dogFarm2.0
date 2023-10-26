@@ -296,7 +296,7 @@ foreach ($dogs as $dog) {
                 echo <<<EOT
                 <div class="dog">
                     <a href='dog.php?id={$dog["Id"]}'>
-                        <img src="images/dog1.jpg" />
+                        <img src="{$dog['main_photo']}" />
                         <span>{$dog['dog_name']}</span>
                     </a>
                 </div>
@@ -313,11 +313,11 @@ foreach ($dogs as $dog) {
             }
 
             echo '<div class="dog-list">';
-            foreach ($maleDogs as $dog) {
+            foreach ($femaleDogs as $dog) {
                 echo <<<EOT
                 <div class="dog">
                     <a href='dog.php?id={$dog["Id"]}'>
-                        <img src="images/dog1.jpg" />
+                        <img src="{$dog['main_photo']}" />
                         <span>{$dog['dog_name']}</span>
                     </a>
                 </div>
@@ -333,11 +333,11 @@ foreach ($dogs as $dog) {
             }
 
             echo '<div class="dog-list">';
-            foreach ($maleDogs as $dog) {
+            foreach ($retiredDogs as $dog) {
                 echo <<<EOT
                 <div class="dog">
                     <a href='dog.php?id={$dog["Id"]}'>
-                        <img src="images/dog1.jpg" />
+                        <img src="{$dog['main_photo']}" />
                         <span>{$dog['dog_name']}</span>
                     </a>
                 </div>
