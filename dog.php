@@ -12,11 +12,6 @@ $dogQuery->bindParam(':dogId', $dogId);
 $dogQuery->execute();
 $dogResult = $dogQuery->fetch(PDO::FETCH_ASSOC);
 
-// $galleryQuery = $db->prepare('SELECT i.*
-//                                 FROM images i
-//                                 INNER JOIN photo_gallery pg ON i.Id = pg.photo_id
-//                                 WHERE pg.gallery_type = 2 AND pg.gallery_id = :dogId');
-
 $galleryQuery = $db->prepare("SELECT photo_link FROM photo_gallery WHERE gallery_type = 2 AND gallery_id = :galleryId");
 $galleryQuery->bindParam(':galleryId', $dogId);
 $galleryQuery->execute();
