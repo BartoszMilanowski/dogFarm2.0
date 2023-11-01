@@ -3,14 +3,16 @@ session_start();
 
 require_once 'configure/db_connect.php';
 
-$aboutQuery = $db->prepare('SELECT * FROM about WHERE Id = 1');
+$aboutQuery = $db->prepare('SELECT * FROM about WHERE id = 1');
 $aboutQuery->execute();
 $about = $aboutQuery->fetch(PDO::FETCH_ASSOC);
 
-$galleryQuery = $db->prepare("SELECT i.*
-                                FROM images i
-                                INNER JOIN photo_gallery pg ON i.Id = pg.photo_id
-                                WHERE pg.gallery_type = 3 AND pg.gallery_id = 1");
+// $galleryQuery = $db->prepare("SELECT i.*
+//                                 FROM images i
+//                                 INNER JOIN photo_gallery pg ON i.id = pg.photo_id
+//                                 WHERE pg.gallery_type = 3 AND pg.gallery_id = 1");
+
+$galleryQuery = $db->prepare("SELECT photo_link FROM photo_gallery WHERE gallery_type = 3 AND gallery_id = 1");
 $galleryQuery->execute();
 $gallery = $galleryQuery->fetchAll(PDO::FETCH_ASSOC);
 
@@ -63,7 +65,7 @@ $gallery = $galleryQuery->fetchAll(PDO::FETCH_ASSOC);
         foreach($gallery as $item){
             echo<<<EOT
                 <div class="gallery-item">
-                    <img src="{$item['link']}" />
+                    <img src="{$item['photo_link']}" />
                 </div>
             EOT;
         }

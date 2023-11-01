@@ -67,6 +67,7 @@ a {
     padding: .5em;
     padding-bottom: .2em;
     color: black;
+    white-space: nowrap;
 }
 
 .menu-link::after {
@@ -488,6 +489,11 @@ a {
 .dog img {
     width: 40em;
     border-radius: 15px;
+    transition: .3s ease-in-out;
+}
+
+.dog img:hover{
+    transform: scale(1.1);
 }
 
 .dog span {

@@ -5,7 +5,7 @@ require_once 'configure/db_connect.php';
 
 $breedId = $_GET['id'];
 
-$breedQuery = $db->prepare("SELECT * FROM breeds WHERE Id = :breedId");
+$breedQuery = $db->prepare("SELECT * FROM breeds WHERE id = :breedId");
 $breedQuery->bindParam(':breedId', $breedId);
 $breedQuery->execute();
 $breedResult = $breedQuery->fetch(PDO::FETCH_ASSOC);
@@ -15,10 +15,11 @@ $dogsQuery->bindParam(":breedId", $breedId);
 $dogsQuery->execute();
 $dogs = $dogsQuery->fetchAll(PDO::FETCH_ASSOC);
 
-$galleryQuery = $db->prepare("SELECT i.*
-                                FROM images i
-                                INNER JOIN photo_gallery pg ON i.Id = pg.photo_id
-                                WHERE pg.gallery_type = 1 AND pg.gallery_id = :galleryId");
+// $galleryQuery = $db->prepare("SELECT i.*
+//                                 FROM images i
+//                                 INNER JOIN photo_gallery pg ON i.id = pg.photo_id
+//                                 WHERE pg.gallery_type = 1 AND pg.gallery_id = :galleryId");
+$galleryQuery = $db->prepare("SELECT photo_link FROM photo_gallery WHERE gallery_type = 1 AND gallery_id = :galleryId");
 $galleryQuery->bindParam(":galleryId", $breedId);
 $galleryQuery->execute();
 $gallery = $galleryQuery->fetchAll(PDO::FETCH_ASSOC);
@@ -68,7 +69,7 @@ foreach ($dogs as $dog) {
     <!--Breed basics-->
     <section id="breed-top">
         <div class="breed-top-img">
-            <img src=<?= "{$breedResult['main_photo_link']}" ?> />
+            <img src=<?= "{$breedResult['main_photo']}" ?> />
         </div>
         <div class="breed-top-text">
             <div class="breed-name">
@@ -239,7 +240,7 @@ foreach ($dogs as $dog) {
                         <?= $_SESSION['lang'] == 'pl' ? "Kończyny tylne" : "Back legs" ?>
                     </span>
                     <p>
-                        <?= $breedResult['hind limbs'] ?>
+                        <?= $breedResult['hind_limbs'] ?>
                     </p>
                 </div>
             </li>
@@ -285,7 +286,7 @@ foreach ($dogs as $dog) {
             foreach ($maleDogs as $dog) {
                 echo <<<EOT
                 <div class="dog">
-                    <a href='dog.php?id={$dog["Id"]}'>
+                    <a href='dog.php?id={$dog["id"]}'>
                         <img src="{$dog['main_photo']}" />
                         <span>{$dog['dog_name']}</span>
                     </a>
@@ -306,7 +307,7 @@ foreach ($dogs as $dog) {
             foreach ($femaleDogs as $dog) {
                 echo <<<EOT
                 <div class="dog">
-                    <a href='dog.php?id={$dog["Id"]}'>
+                    <a href='dog.php?id={$dog["id"]}'>
                         <img src="{$dog['main_photo']}" />
                         <span>{$dog['dog_name']}</span>
                     </a>
@@ -326,7 +327,7 @@ foreach ($dogs as $dog) {
             foreach ($retiredDogs as $dog) {
                 echo <<<EOT
                 <div class="dog">
-                    <a href='dog.php?id={$dog["Id"]}'>
+                    <a href='dog.php?id={$dog["id"]}'>
                         <img src="{$dog['main_photo']}" />
                         <span>{$dog['dog_name']}</span>
                     </a>
@@ -351,7 +352,7 @@ foreach ($dogs as $dog) {
         foreach ($gallery as $item) {
             echo <<< EOT
             <div class="gallery-item">
-                <img src="{$item['link']}" />
+                <img src="{$item['photo_link']}" />
             </div>
             EOT;
         }

@@ -7,16 +7,18 @@ require_once 'configure/db_connect.php';
 
 $dogId = $_GET['id'];
 
-$dogQuery = $db->prepare("SELECT * FROM dog WHERE Id = :dogId");
+$dogQuery = $db->prepare("SELECT * FROM dog WHERE id = :dogId");
 $dogQuery->bindParam(':dogId', $dogId);
 $dogQuery->execute();
 $dogResult = $dogQuery->fetch(PDO::FETCH_ASSOC);
 
-$galleryQuery = $db->prepare('SELECT i.*
-                                FROM images i
-                                INNER JOIN photo_gallery pg ON i.Id = pg.photo_id
-                                WHERE pg.gallery_type = 2 AND pg.gallery_id = :dogId');
-$galleryQuery->bindParam(':dogId', $dogId);
+// $galleryQuery = $db->prepare('SELECT i.*
+//                                 FROM images i
+//                                 INNER JOIN photo_gallery pg ON i.Id = pg.photo_id
+//                                 WHERE pg.gallery_type = 2 AND pg.gallery_id = :dogId');
+
+$galleryQuery = $db->prepare("SELECT photo_link FROM photo_gallery WHERE gallery_type = 2 AND gallery_id = :galleryId");
+$galleryQuery->bindParam(':galleryId', $dogId);
 $galleryQuery->execute();
 $gallery = $galleryQuery->fetchAll(PDO::FETCH_ASSOC);
 
@@ -69,7 +71,7 @@ $gallery = $galleryQuery->fetchAll(PDO::FETCH_ASSOC);
         foreach($gallery as $item) {
             echo<<<EOT
                 <div class="gallery-item">
-                    <img src="{$item['link']}" />
+                    <img src="{$item['photo_link']}" />
                 </div>
             EOT;
         }
@@ -80,29 +82,6 @@ $gallery = $galleryQuery->fetchAll(PDO::FETCH_ASSOC);
         EOT;
     }
     ?>
-
-    <!-- <section id="about-gallery">
-        <div class="gallery">
-            <div class="gallery-item">
-                <img src="images/labrador-main.jpg" />
-            </div>
-            <div class="gallery-item">
-                <img src="images/lagotto-main.jpg" />
-            </div>
-            <div class="gallery-item">
-                <img src="images/labrador-chocolate.jpg" />
-            </div>
-            <div class="gallery-item">
-                <img src="images/labrador2.jpg" />
-            </div>
-            <div class="gallery-item">
-                <img src="images/bichon-main.jpg" />
-            </div>
-            <div class="gallery-item">
-                <img src="images/chiuahua-main.jpg" />
-            </div>
-        </div>
-    </section> -->
     <?php include 'components/contact.php' ?>
     <?php include 'components/footer.php' ?>
 </body>

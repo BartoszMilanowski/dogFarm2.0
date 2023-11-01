@@ -1,6 +1,5 @@
 <?php
 
-
 session_start();
 require_once 'configure/db_connect.php';
 
@@ -17,11 +16,11 @@ if (!isset($_SESSION['lang_by_user'])) {
     }
 }
 
-$mainQuery = $db->prepare('SELECT * FROM about WHERE Id = 1');
+$mainQuery = $db->prepare('SELECT * FROM about WHERE id = 1');
 $mainQuery->execute();
 $main = $mainQuery->fetch(PDO::FETCH_ASSOC);
 
-$breedQuery = $db->prepare('SELECT Id, name, main_photo_link  FROM breeds');
+$breedQuery = $db->prepare('SELECT id, name, main_photo  FROM breeds');
 $breedQuery->execute();
 $breedList = $breedQuery->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -52,9 +51,9 @@ $breedList = $breedQuery->fetchAll(PDO::FETCH_ASSOC);
         foreach ($breedList as $breed) {
             echo <<<EOT
             <div class="slide">
-                <img src="{$breed['main_photo_link']}"/>
+                <img src="{$breed['main_photo']}"/>
                 <div class="capture-text">
-                    <a href="breed.php?id={$breed['Id']}">{$breed['name']}</a>
+                    <a href="breed.php?id={$breed['id']}">{$breed['name']}</a>
                 </div>
             </div>
             EOT;
