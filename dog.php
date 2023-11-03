@@ -3,7 +3,11 @@ session_start();
 
 require_once 'configure/db_connect.php';
 
-
+if ($_SESSION['lang'] == 'pl') {
+    $db = $dbPl;
+} else {
+    $db = $dbEn;
+}
 
 $dogId = $_GET['id'];
 
@@ -23,7 +27,7 @@ $gallery = $galleryQuery->fetchAll(PDO::FETCH_ASSOC);
 <html lang="pl">
 
 <head>
-    <?php include 'configure/head.php'?>
+    <?php include 'configure/head.php' ?>
 
     <title>
         <?php
@@ -41,37 +45,39 @@ $gallery = $galleryQuery->fetchAll(PDO::FETCH_ASSOC);
     <section id="about-dog">
         <div class="about-dog">
             <div class="about-dog-img">
-                <img src=<?= $dogResult['main_photo']?> />
+                <img src=<?= $dogResult['main_photo'] ?> />
             </div>
             <div class="about-dog-text">
-                <span class="dog-name"><?= $dogResult['dog_name']?></span>
+                <span class="dog-name">
+                    <?= $dogResult['dog_name'] ?>
+                </span>
                 <span class="by-judges-title">
-                    <?= $_SESSION['lang'] == 'pl' ? "W oczach sedziów" : "In the eyes of the judges"?>
+                    <?= $_SESSION['lang'] == 'pl' ? "W oczach sedziów" : "In the eyes of the judges" ?>
                 </span>
                 <p class="by-judges">
-                    <?= $dogResult['about']?>
+                    <?= $dogResult['about'] ?>
                 </p>
             </div>
         </div>
     </section>
     <!--Gallery-->
 
-    <?php 
+    <?php
 
-    if(sizeof($gallery) > 0){
-        echo<<<EOT
+    if (sizeof($gallery) > 0) {
+        echo <<<EOT
             <section id="about-gallery">
                 <div class="gallery">
         EOT;
-        foreach($gallery as $item) {
-            echo<<<EOT
+        foreach ($gallery as $item) {
+            echo <<<EOT
                 <div class="gallery-item">
                     <img src="{$item['photo_link']}" />
                 </div>
             EOT;
         }
 
-        echo<<<EOT
+        echo <<<EOT
                 </div>
             </section>
         EOT;

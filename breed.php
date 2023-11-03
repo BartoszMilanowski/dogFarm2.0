@@ -2,6 +2,11 @@
 session_start();
 require_once 'configure/db_connect.php';
 
+if ($_SESSION['lang'] == 'pl') {
+    $db = $dbPl;
+} else {
+    $db = $dbEn;
+}
 
 $breedId = $_GET['id'];
 
@@ -15,12 +20,10 @@ $dogsQuery->bindParam(":breedId", $breedId);
 $dogsQuery->execute();
 $dogs = $dogsQuery->fetchAll(PDO::FETCH_ASSOC);
 
-
 $galleryQuery = $db->prepare("SELECT photo_link FROM photo_gallery WHERE gallery_type = 1 AND gallery_id = :galleryId");
 $galleryQuery->bindParam(":galleryId", $breedId);
 $galleryQuery->execute();
 $gallery = $galleryQuery->fetchAll(PDO::FETCH_ASSOC);
-
 
 $maleDogs = array();
 $femaleDogs = array();
@@ -48,7 +51,7 @@ foreach ($dogs as $dog) {
 <html lang="pl">
 
 <head>
-    <?php include 'configure/head.php'?>
+    <?php include 'configure/head.php' ?>
 
     <title>
         <?php
@@ -347,13 +350,13 @@ foreach ($dogs as $dog) {
 
         echo '<div class="gallery">';
         foreach ($gallery as $item) {
-            echo <<< EOT
+            echo <<<EOT
             <div class="gallery-item">
                 <img src="{$item['photo_link']}" />
             </div>
             EOT;
         }
-        echo <<< EOT
+        echo <<<EOT
         </div>
         </section>
         EOT;

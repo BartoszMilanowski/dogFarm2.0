@@ -2,21 +2,21 @@
 
 session_start();
 
-$db_host = "localhost";
-$db_user = "root";
-$db_pass = "";
-
-if($_SESSION['lang'] == 'pl'){
-    $database = "ZKrainyNarwi";
-
-} else{
-    $database = "ZKrainyNarwi_en";
-}
+$dbHost = 'localhost';
+$dbUser = 'root';
+$dbPass = '';
+$databasePl = 'ZKrainyNarwi';
+$databaseEn = 'ZKrainyNarwi_en';
 
 try {
-    $db = new PDO("mysql:host=$db_host;dbname=$database", $db_user, $db_pass);
+    
+    $dbPl = new PDO("mysql:host=$dbHost;dbname=$databasePl", $dbUser, $dbPass);
+    $dbPl->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $dbEn = new PDO("mysql:host=$dbHost;dbname=$databaseEn", $dbUser, $dbPass);
+    $dbEn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
 } catch (PDOException $e) {
     echo "" . $e->getMessage();
 }
+

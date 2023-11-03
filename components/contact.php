@@ -2,6 +2,13 @@
 
 require_once 'configure/db_connect.php';
 
+if($_SESSION['lang'] == 'pl'){
+    $db = $dbPl;
+} else{
+    $db = $dbEn;
+}
+
+
 $contactQuery  =$db->prepare('SELECT * FROM contact WHERE id = 1');
 $contactQuery->execute();
 $contact = $contactQuery->fetch(PDO::FETCH_ASSOC);

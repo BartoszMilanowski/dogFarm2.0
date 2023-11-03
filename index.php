@@ -9,11 +9,15 @@ if (!isset($_SESSION['lang_by_user'])) {
         $preferredLang = substr($languages, 0, 2);
 
         $_SESSION['lang'] = $preferredLang;
-
-
     } else {
         $_SESSION['lang'] = 'pl';
     }
+}
+
+if($_SESSION['lang'] == 'pl'){
+    $db = $dbPl;
+} else{
+    $db = $dbEn;
 }
 
 $mainQuery = $db->prepare('SELECT * FROM about WHERE id = 1');

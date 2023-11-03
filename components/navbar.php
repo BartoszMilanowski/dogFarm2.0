@@ -2,6 +2,12 @@
 session_start();
 require_once 'configure/db_connect.php';
 
+if ($_SESSION['lang'] == 'pl') {
+    $db = $dbPl;
+} else {
+    $db = $dbEn;
+}
+
 $breedsQuery = $db->query('SELECT * FROM breeds');
 $breeds = $breedsQuery->fetchAll();
 
@@ -31,8 +37,7 @@ $breeds = $breedsQuery->fetchAll();
             </a></li>
         <li>
             <a href="configure/change-lang.php">
-                <img class="lang-icon"
-                src=<?= $_SESSION['lang'] == 'en' ? 'images/icons/poland.png' : "images/icons/united-kingdom.png" ?> />
+                <img class="lang-icon" src=<?= $_SESSION['lang'] == 'en' ? 'images/icons/poland.png' : "images/icons/united-kingdom.png" ?> />
             </a>
         </li>
     </ul>

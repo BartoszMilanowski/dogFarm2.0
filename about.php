@@ -3,6 +3,12 @@ session_start();
 
 require_once 'configure/db_connect.php';
 
+if ($_SESSION['lang'] == 'pl') {
+    $db = $dbPl;
+} else {
+    $db = $dbEn;
+}
+
 $aboutQuery = $db->prepare('SELECT * FROM about WHERE id = 1');
 $aboutQuery->execute();
 $about = $aboutQuery->fetch(PDO::FETCH_ASSOC);
@@ -17,11 +23,11 @@ $gallery = $galleryQuery->fetchAll(PDO::FETCH_ASSOC);
 <html lang="pl">
 
 <head>
-    <?php include 'configure/head.php'?>
+    <?php include 'configure/head.php' ?>
 
     <title>
         <?php
-        if($_SESSION['lang'] == 'pl'){
+        if ($_SESSION['lang'] == 'pl') {
             echo 'O nas - Z Krainy Narwi';
         } else {
             echo 'About us - From the Land of the Narew';
@@ -36,35 +42,35 @@ $gallery = $galleryQuery->fetchAll(PDO::FETCH_ASSOC);
     <section id="about-page">
         <div class="about-page-first">
             <div class="about-page-image">
-                <img src= <?= "{$about['about_image']}" ?> />
+                <img src=<?= "{$about['about_image']}" ?> />
             </div>
             <div class="about-page-text-first">
                 <p>
-                    <?= "{$about['about_intro']}"?>
+                    <?= "{$about['about_intro']}" ?>
                 </p>
             </div>
         </div>
         <div class="about-page-content">
-            <?= "{$about['about_main']}"?>
+            <?= "{$about['about_main']}" ?>
         </div>
     </section>
 
     <!--Gallery-->
     <?php
 
-    if(sizeof($gallery) > 0){
-        echo<<<EOT
+    if (sizeof($gallery) > 0) {
+        echo <<<EOT
             <section id="about-gallery">
                 <div class="gallery">
         EOT;
-        foreach($gallery as $item){
-            echo<<<EOT
+        foreach ($gallery as $item) {
+            echo <<<EOT
                 <div class="gallery-item">
                     <img src="{$item['photo_link']}" />
                 </div>
             EOT;
         }
-        echo<<<EOT
+        echo <<<EOT
                 </div>
             </section>
         EOT;
@@ -74,4 +80,5 @@ $gallery = $galleryQuery->fetchAll(PDO::FETCH_ASSOC);
     <?php include 'components/contact.php' ?>
     <?php include 'components/footer.php' ?>
 </body>
+
 </html>
