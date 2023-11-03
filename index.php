@@ -6,9 +6,9 @@ require_once 'configure/db_connect.php';
 if (!isset($_SESSION['lang_by_user'])) {
     if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
         $languages = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
-        $preferred_lang = substr($languages, 0, 2);
+        $preferredLang = substr($languages, 0, 2);
 
-        $_SESSION['lang'] = $preferred_lang;
+        $_SESSION['lang'] = $preferredLang;
 
 
     } else {
