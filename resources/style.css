@@ -384,6 +384,35 @@ a {
     color: rgb(255, 255, 255);
 }
 
+.prevBtn {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 25px;
+    position: absolute;
+    top: 50;
+    left: 0;
+    margin: 20px;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+}
+
+.prevBtn:hover {
+    color: rgb(255, 255, 255);
+}
+.nextBtn {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 25px;
+    position: absolute;
+    top: 50;
+    right: 0;
+    margin: 20px;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+}
+
+.nextBtn:hover {
+    color: rgb(255, 255, 255);
+}
+
 /*Breed*/
 
 #breed-top {
@@ -792,7 +821,9 @@ a {
         object-fit: cover;
     }
 
-    .closeBtn{
+    .closeBtn,
+    .prevBtn,
+    .nextBtn{
         font-size: 50px;
     }
 
@@ -973,7 +1004,9 @@ a {
         margin-left: .5em;
     }
 
-    .closeBtn{
+    .closeBtn,
+    .prevBtn,
+    .nextBtn{
         font-size: 40px;
     }
 

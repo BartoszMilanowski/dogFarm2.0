@@ -1,4 +1,4 @@
-window.onscroll = () => {scrollFunction();}
+window.onscroll = () => { scrollFunction(); }
 
 document.addEventListener('DOMContentLoaded', () => {
     modalGallery();
@@ -18,6 +18,7 @@ const scrollFunction = () => {
 
 const modalGallery = () => {
     const images = document.querySelectorAll('.gallery-item img');
+    let currentIndex = 0;
 
     images.forEach((img) => {
         img.addEventListener('click', () => {
@@ -27,6 +28,7 @@ const modalGallery = () => {
 
     let imgModal = (img) => {
 
+        currentIndex = Array.from(images).indexOf(img);
         let src = img.src;
 
         const modal = document.createElement('div');
@@ -36,13 +38,27 @@ const modalGallery = () => {
         const newImage = document.createElement('img');
         newImage.setAttribute('src', src);
 
+        const prevBtn = document.createElement('i');
+        prevBtn.setAttribute('class', 'fas fa-arrow-left prevBtn');
+        prevBtn.onclick = () => {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            newImage.src = images[currentIndex].src;
+        }
+
+        const nextBtn = document.createElement('i');
+        nextBtn.setAttribute('class', 'fas fa-arrow-right nextBtn');
+        nextBtn.onclick = () => {
+            currentIndex = (currentIndex + 1) % images.length;
+            newImage.src = images[currentIndex].src;
+        }
+
         const closeBtn = document.createElement('i');
         closeBtn.setAttribute('class', 'fas fa-times closeBtn');
         closeBtn.onclick = () => {
             modal.remove();
         }
 
-        modal.append(newImage, closeBtn);
+        modal.append(newImage, closeBtn, prevBtn, nextBtn);
     };
 }
 
@@ -54,7 +70,7 @@ const showSlides = () => {
     let i;
     const slides = document.querySelectorAll('.slide');
 
-    if(slides.length === 0){
+    if (slides.length === 0) {
         return;
     }
 
