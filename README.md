@@ -1,2 +1,3 @@
-# dogFarm2.0
-This project is fullstack version for repo dogFarm. It's my first php project in which i try to make dynymic version website created with html/css/js.
+[PL] Projekt jest rozwinięciem projektu dogFarm (https://github.com/BartoszMilanowski/dogFarm) o kod napisany w języku PHP.
+
+[EN] The project is an expansion of the dogFarm project (https://github.com/BartoszMilanowski/dogFarm) with code written in PHP.
