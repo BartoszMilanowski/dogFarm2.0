@@ -15,6 +15,11 @@ $allPhotosQuery = $dbPl->prepare('SELECT * FROM photos');
 $allPhotosQuery->execute();
 $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
 
+$currentGalleryQuery = $dbPl->prepare('SELECT * FROM photo_gallery WHERE gallery_type = 3 AND gallery_id = 1');
+$currentGalleryQuery->execute();
+$currentGallery = $currentGalleryQuery->fetchAll(PDO::FETCH_ASSOC);
+
+
 
 $currentPhoto = "../" . $aboutPl['about_image'];
 ?>
@@ -67,8 +72,37 @@ $currentPhoto = "../" . $aboutPl['about_image'];
                     <?php
                     foreach ($allPhotos as $photo) {
 
+                        echo <<<EOT
+                        <label class="form-label">
+                        <input type="radio" name="selectedPhoto" value="{$photo['link']}"/>
+                        <img class="currentPhoto" src="../{$photo['link']}" />
+                        </label>
+                        EOT;
+
+                    }
+                    ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="gallery" class="form-label">Galeria</label><br />
+
+                <div class="gallery">
+                    <?php
+                    foreach ($allPhotos as $photo) {
+
+                        foreach($currentGallery as $galleryItem){
+                            if($galleryItem['photo_link'] === $photo['link']){
+                                $isChecked = true;
+                                break;
+                            } else {
+                                $isChecked = false;
+                            }
+                        }
+
                         echo '<label class="form-label">';
-                        echo '<input type="radio" name="selectedPhoto" value="' . $photo['link'] . '"/>';
+                        echo '<input type="checkbox" value="' . $photo['link'] . '"';
+                        echo $isChecked ? 'checked' : '';
+                        echo '/>';
                         echo '<img class="currentPhoto" src="../' . $photo['link'] . '" />';
                         echo '</label>';
 
