@@ -6,8 +6,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="main.php">Strona główna</a>
+        <a class="nav-link active" aria-current="page" href="main.php">Pulpit</a>
         <a class="nav-link" href="about.php">O nas</a>
+        <a class="nav-link" href="motto.php">Motto</a>
         <a class="nav-link" href="#">Kontakt</a>
         <a class="nav-link" href="#">Rasy</a>
         <a class="nav-link" href="#">Psy</a>

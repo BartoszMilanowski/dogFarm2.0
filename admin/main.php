@@ -26,6 +26,11 @@ session_start();
                         <!-- <td class="col-1"><a href="#" target="_blank" class="btn btn-primary" role="button">Podgląd</td> -->
                     </tr>
                     <tr>
+                        <th scope="row">Motto</th>
+                        <td class="col-1"><a href="motto.php" class="btn btn-primary" role="button">Edytuj</td>
+                        <!-- <td class="col-1"><a href="#" target="_blank" class="btn btn-primary" role="button">Podgląd</td> -->
+                    </tr>
+                    <tr>
                         <th scope="row">Kontakt</th>
                         <td class="col-1"><a href="#" class="btn btn-primary" role="button">Edytuj</td>
                         <!-- <td class="col-1"><a href="#" target="_blank" class="btn btn-primary" role="button">Podgląd</td> -->

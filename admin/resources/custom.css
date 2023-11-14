@@ -1,0 +1,17 @@
+.form-group {
+    margin-top: 2em;
+}
+
+.currentPhoto{
+    width: 200px;
+    height: 200px;
+}
+
+.showPhotos{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.hidden{
+    display: none;
+}
