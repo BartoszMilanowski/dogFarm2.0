@@ -1,25 +1,5 @@
 document.addEventListener('DOMContentLoaded', (e) => {
     e.preventDefault();
-
-
-    const btn = document.querySelector('.changePhoto');
-    const radioInputs = document.querySelectorAll('input[name="selectedPhoto"]');
-
-    if (btn) {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            togglePhotosList();
-        })
-    }
-
-    if(radioInputs){
-        radioInputs.forEach((radioInput) => {
-            radioInput.addEventListener('change', (e) => {
-                e.preventDefault();
-                changePhoto(radioInput);
-            })
-        })
-    }
 });
 
 const togglePhotosList = () => {
@@ -33,7 +13,7 @@ const togglePhotosList = () => {
 }
 
 const changePhoto = (radioInput) => {
-    
+
     const currentPhoto = document.querySelector("#currentPhoto");
     const hiddenInput = document.querySelector('input[name="currentPhotoLink"]');
 
