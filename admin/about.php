@@ -37,29 +37,38 @@ $currentPhoto = "../" . $aboutPl['about_image'];
 
 <body class="pb-5">
     <div class="container">
-        <?php include "components/nav.php" ?>
+        <?php
+            include "components/nav.php";
+            
+            if(isset($_SESSION['result'])){
+                echo $_SESSION['result'];
+                unset($_SESSION['result']);
+            }
+
+
+        ?>
 
         <h1 class="py-3">O nas</h1>
 
         <form action="controllers/editAbout.php" method="post">
             <div class="form-group">
                 <label for="aboutIntro" class="form-label">O nas - wstęp</label>
-                <textarea class="form-control" id="aboutIntro"
+                <textarea class="form-control" id="aboutIntro" name="aboutIntro"
                     style="min-height: 200px"><?= "{$aboutPl['about_intro']}" ?></textarea>
             </div>
             <div class="form-group">
                 <label for="aboutMain" class="form-label">O nas - tekst główny</label>
-                <textarea class="form-control" id="aboutMain"
+                <textarea class="form-control" id="aboutMain" name="aboutMain"
                     style="min-height: 200px"><?= "{$aboutPl['about_main']}" ?></textarea>
             </div>
             <div class="form-group">
                 <label for="aboutIntroEn" class="form-label">O nas - wstęp [wersja angielska]</label>
-                <textarea class="form-control" id="aboutIntroEn"
+                <textarea class="form-control" id="aboutIntroEn" name="aboutIntroEn"
                     style="min-height: 200px"><?= "{$aboutEn['about_intro']}" ?></textarea>
             </div>
             <div class="form-group">
                 <label for="aboutMainEn" class="form-label">O nas - tekst główny [wersja angielska]</label>
-                <textarea class="form-control" id="aboutMainEn"
+                <textarea class="form-control" id="aboutMainEn" name="aboutMainEn"
                     style="min-height: 200px"><?= "{$aboutEn['about_main']}" ?></textarea>
             </div>
             <div class="form-group">
@@ -70,10 +79,18 @@ $currentPhoto = "../" . $aboutPl['about_image'];
 
         <div class="form-group">
             <label for="currentPhoto" class="form-label">Zdjęcie główne</label><br />
-            <img id="currentPhoto" class="currentPhoto" src="<?= "$currentPhoto" ?>" /><br />
+            <img id="currentPhoto" class="currentPhoto" src=" -->
+            <?php
+            // "$currentPhoto" 
+            ?>
+            <!-- "/><br />
             <label for="newPhoto" class="btn btn-primary my-3">Wybierz plik</label>
             <input type="file" id="newPhoto" name="newPhoto" style="display: none" />
-            <input type="hidden" name="currentPhotoLink" value="<?= $currentPhoto ?>"> -->
+            <input type="hidden" name="currentPhotoLink" value="-->
+            <?php
+            // $currentPhoto 
+            ?>
+            <!-- "> -->
 
 
 
