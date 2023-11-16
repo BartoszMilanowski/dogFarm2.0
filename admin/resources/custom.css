@@ -3,7 +3,7 @@
 }
 
 .currentPhoto{
-    width: 200px;
+    max-width: 500px;
     height: 200px;
 }
 

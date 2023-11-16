@@ -11,16 +11,6 @@ $aboutQueryEn = $dbEn->prepare('SELECT * FROM about WHERE id = 1');
 $aboutQueryEn->execute();
 $aboutEn = $aboutQueryEn->fetch(PDO::FETCH_ASSOC);
 
-$allPhotosQuery = $dbPl->prepare('SELECT * FROM photos');
-$allPhotosQuery->execute();
-$allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
-
-$currentGalleryQuery = $dbPl->prepare('SELECT * FROM photo_gallery WHERE gallery_type = 3 AND gallery_id = 1');
-$currentGalleryQuery->execute();
-$currentGallery = $currentGalleryQuery->fetchAll(PDO::FETCH_ASSOC);
-
-
-
 $currentPhoto = "../" . $aboutPl['about_image'];
 ?>
 
@@ -38,14 +28,12 @@ $currentPhoto = "../" . $aboutPl['about_image'];
 <body class="pb-5">
     <div class="container">
         <?php
-            include "components/nav.php";
-            
-            if(isset($_SESSION['result'])){
-                echo $_SESSION['result'];
-                unset($_SESSION['result']);
-            }
+        include "components/nav.php";
 
-
+        if (isset($_SESSION['result'])) {
+            echo $_SESSION['result'];
+            unset($_SESSION['result']);
+        }
         ?>
 
         <h1 class="py-3">O nas</h1>
@@ -72,76 +60,16 @@ $currentPhoto = "../" . $aboutPl['about_image'];
                     style="min-height: 200px"><?= "{$aboutEn['about_main']}" ?></textarea>
             </div>
             <div class="form-group">
-                <input class="btn btn-primary" type="submit" value="Zapisz"/>
+                <input class="btn btn-primary" type="submit" value="Zapisz" />
             </div>
         </form>
-<!-- 
 
-        <div class="form-group">
-            <label for="currentPhoto" class="form-label">Zdjęcie główne</label><br />
-            <img id="currentPhoto" class="currentPhoto" src=" -->
-            <?php
-            // "$currentPhoto" 
-            ?>
-            <!-- "/><br />
-            <label for="newPhoto" class="btn btn-primary my-3">Wybierz plik</label>
-            <input type="file" id="newPhoto" name="newPhoto" style="display: none" />
-            <input type="hidden" name="currentPhotoLink" value="-->
-            <?php
-            // $currentPhoto 
-            ?>
-            <!-- "> -->
-
-
-
-
-
-            <!--<button class="btn btn-primary my-3 changePhoto">Zmień zdjęcie</button>
-
-                <div class="showPhotos hidden"> -->
-            <?php
-            /*foreach ($allPhotos as $photo) {
-
-                echo <<<EOT
-                <label class="form-label">
-                <input type="radio" name="selectedPhoto" value="{$photo['link']}"/>
-                <img class="currentPhoto" src="../{$photo['link']}" />
-                </label>
-                EOT;
-
-            }*/
-            ?>
-            <!-- </div> -->
-        </div>
-        <div class="form-group">
-            <!-- <label for="gallery" class="form-label">Galeria</label><br />
-
-                <div class="gallery"> -->
-            <?php
-            /*foreach ($allPhotos as $photo) {
-
-                foreach($currentGallery as $galleryItem){
-                    if($galleryItem['photo_link'] === $photo['link']){
-                        $isChecked = true;
-                        break;
-                    } else {
-                        $isChecked = false;
-                    }
-                }
-
-                echo '<label class="form-label">';
-                echo '<input type="checkbox" value="' . $photo['link'] . '"';
-                echo $isChecked ? 'checked' : '';
-                echo '/>';
-                echo '<img class="currentPhoto" src="../' . $photo['link'] . '" />';
-                echo '</label>';
-
-            }*/
-            ?>
-            <!-- </div> -->
-        </div>
+        <form class="my-5" action="controllers/uploadPhoto.php" method="post" enctype="multipart/form-data">
+            <label for="currentPhoto">Zdjęcie główne</label><br/>
+            <img class="currentPhoto my-2" name="currentPhoto" id="currentPhoto" src="<?=$currentPhoto?>"><br/>
+            <input type="file" name="file" id="file">
+            <br/><button class="btn btn-primary my-2" type="submit" name="submit">Prześlij</button>
+        </form>
     </div>
-
 </body>
-
 </html>
