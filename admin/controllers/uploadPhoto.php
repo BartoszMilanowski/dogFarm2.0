@@ -13,24 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $uploadDir = realpath('../../images/photos/') . '/';
         $filePath = $uploadDir . $fileName;
-        // move_uploaded_file($tmpName, $filePath);
+        move_uploaded_file($tmpName, $filePath);
 
-        if ($uploadDir === false) {
-            echo 'Nieprawidłowa ścieżka do folderu.';
-        } else {
-            // Spróbuj przenieść plik
-            if (move_uploaded_file($tmpName, $filePath)) {
-                echo 'Zdjęcie zostało przesłane i zapisane w folderze.';
-            } else {
-                echo 'Błąd podczas przenoszenia pliku.';
-                echo 'Błąd: ' . error_get_last()['message'];
-            }
-        }
-
-
-        // print_r($_FILES['file']);
-        // echo $uploadDir . " " . $fileName;
-
+        
 
     } else {
         switch ($_FILES['file']['error']) {
