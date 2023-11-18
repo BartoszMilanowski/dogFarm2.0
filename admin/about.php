@@ -68,9 +68,9 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
                     style="min-height: 200px"><?= "{$aboutEn['about_main']}" ?></textarea>
             </div>
             <label for="currentPhoto" class="form-label">Zdjęcie główne</label><br />
-            <span>Id: <?= $currentPhoto['id'] ?></span><br/>
-            <span>Opis: <?= $currentPhoto['about'] ?></span><br/>
-            <span>Alt: <?= $currentPhoto['alt'] ?></span><br/>
+            <span id="currentId">Id:
+                <?= $currentPhoto['id'] ?>
+            </span><br />
             <img id="currentPhoto" class="currentPhoto" src='<?= "../" . $currentPhoto['link'] ?>' /><br />
             <input type="hidden" name="currentPhotoId" value="<?= $currentPhoto['id'] ?>">
             <button class="btn btn-primary my-3 changePhoto">Zmień zdjęcie</button>
@@ -83,7 +83,7 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
                     echo '<input type="radio" name="selectedPhotoId" value="' . $photo['id'] . '"/>';
                     echo '<img class="currentPhoto selectedPhotoLink" name="selectedPhotoLink" src="../' . $photo['link'] . '" />';
                     echo '</label>';
-                    
+
                 }
                 ?>
             </div>

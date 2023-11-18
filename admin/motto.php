@@ -3,15 +3,23 @@
 session_start();
 require_once "../configure/db_connect.php";
 
-$aboutQueryPl = $dbPl->prepare('SELECT * FROM about WHERE id = 1');
-$aboutQueryPl->execute();
-$aboutPl = $aboutQueryPl->fetch(PDO::FETCH_ASSOC);
+$mottoQueryPl = $dbPl->prepare('SELECT * FROM motto WHERE id = 1');
+$mottoQueryPl->execute();
+$mottoPl = $mottoQueryPl->fetch(PDO::FETCH_ASSOC);
 
-$aboutQueryEn = $dbEn->prepare('SELECT * FROM about WHERE id = 1');
-$aboutQueryEn->execute();
-$aboutEn = $aboutQueryEn->fetch(PDO::FETCH_ASSOC);
+$mottoQueryEn = $dbEn->prepare('SELECT * FROM motto WHERE id = 1');
+$mottoQueryEn->execute();
+$mottoEn = $mottoQueryEn->fetch(PDO::FETCH_ASSOC);
 
-$currentPhoto = "../" . $aboutPl['motto_image'];
+$photoQuery = $dbPl->prepare('SELECT * FROM photos WHERE id = :imageId');
+$photoQuery->bindValue(':imageId', $mottoPl['image_id']);
+$photoQuery->execute();
+$currentPhoto = $photoQuery->fetch(PDO::FETCH_ASSOC);
+
+$allPhotosQuery = $dbPl->prepare('SELECT * FROM photos');
+$allPhotosQuery->execute();
+$allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -27,42 +35,53 @@ $currentPhoto = "../" . $aboutPl['motto_image'];
 
 <body class="pb-5">
     <div class="container">
-        <?php include "components/nav.php" ?>
+        <?php include "components/nav.php";
+
+        if (isset($_SESSION['result'])) {
+            echo $_SESSION['result'];
+            unset($_SESSION['result']);
+        }
+        ?>
 
         <h1 class="py-3">O nas</h1>
-        <form>
+        <form action="controllers/editMotto.php" method="post">
             <div class="form-group">
-                <label for="aboutMotto" class="form-label">Motto (strona główna)</label>
-                <textarea class="form-control" id="aboutMotto"
-                    style="min-height: 200px"><?= "{$aboutPl['motto']}" ?></textarea>
+                <label for="mottoPl" class="form-label">Motto (strona główna)</label>
+                <textarea class="form-control" id="mottoPl" name="mottoPl"
+                    style="min-height: 200px"><?= "{$mottoPl['motto']}" ?></textarea>
             </div>
             <div class="form-group">
-                <label for="aboutMottoEn" class="form-label">Motto (strona główna) [wersja angielska]</label>
-                <textarea class="form-control" id="aboutMottoEn"
-                    style="min-height: 200px"><?= "{$aboutEn['motto']}" ?></textarea>
+                <label for="mottoEn" class="form-label">Motto (strona główna) [wersja angielska]</label>
+                <textarea class="form-control" id="mottoEn" name="mottoEn"
+                    style="min-height: 200px"><?= "{$mottoEn['motto']}" ?></textarea>
             </div>
             <div class="form-group">
                 <label for="mottoAuthor" class="form-label">Autor motto</label>
-                <input type="text" class="form-control" id="mottoAuthor" value="<?= "{$aboutPl['motto_author']}" ?>" />
+                <input type="text" class="form-control" id="mottoAuthor" name="mottoAuthor" value="<?= "{$mottoPl['motto_author']}" ?>" />
+            </div>
+            <label for="currentPhoto" class="form-label">Zdjęcie główne</label><br />
+            <span id="currentId">Id:
+                <?= $currentPhoto['id'] ?>
+            </span><br />
+            <img id="currentPhoto" class="currentPhoto" src='<?= "../" . $currentPhoto['link'] ?>' /><br />
+            <input type="hidden" name="currentPhotoId" value="<?= $currentPhoto['id'] ?>">
+            <button class="btn btn-primary my-3 changePhoto">Zmień zdjęcie</button>
+            <div class="showPhotos hidden">
+                <?php
+                foreach ($allPhotos as $photo) {
+
+                    echo '<label class="form-label">';
+                    echo '<input type="radio" name="selectedPhotoId" value="' . $photo['id'] . '"/>';
+                    echo '<input type="hidden" name="selectedAbout" value"' . $photo['about'] . '"/>';
+                    echo '<input type="hidden" name="selectedAlt" value"' . $photo['alt'] . '"/>';
+                    echo '<img class="currentPhoto selectedPhotoLink" name="selectedPhotoLink" src="../' . $photo['link'] . '" />';
+                    echo '</label>';
+
+                }
+                ?>
             </div>
             <div class="form-group">
-                <label for="currentPhoto" class="form-label">Zdjęcie główne</label><br />
-                <img id="currentPhoto" class="currentPhoto" src="<?= "$currentPhoto" ?>" /><br />
-                <input type="hidden" name="currentPhotoLink" value="<?= $currentPhoto ?>">
-                <button class="btn btn-primary my-3 changePhoto">Zmień zdjęcie</button>
-
-                <div class="showPhotos hidden">
-                    <?php
-                    foreach ($allPhotos as $photo) {
-
-                        echo '<label class="form-label">';
-                        echo '<input type="radio" name="selectedPhoto" value="' . $photo['link'] . '"/>';
-                        echo '<img class="currentPhoto" src="../' . $photo['link'] . '" />';
-                        echo '</label>';
-
-                    }
-                    ?>
-                </div>
+                <input class="btn btn-primary" type="submit" value="Zapisz" />
             </div>
         </form>
     </div>

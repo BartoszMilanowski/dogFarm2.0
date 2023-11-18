@@ -37,9 +37,12 @@ const changePhoto = (radioInput) => {
     const currentPhoto = document.querySelector("#currentPhoto");
     const hiddenInput = document.querySelector('input[name="currentPhotoId"]');
     const selectedLink = radioInput.closest('label').querySelector('.selectedPhotoLink');
+    const currentId = document.querySelector("#currentId");
+
 
     currentPhoto.src = selectedLink.src;
     hiddenInput.value = radioInput.value;
+    currentId.innerHTML = "Id: " + radioInput.value;
     radioInput.checked = false;
 
     togglePhotosList();
