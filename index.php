@@ -30,6 +30,15 @@ $aboutPhotoQuery->bindParam(':aboutImageId', $about['image_id']);
 $aboutPhotoQuery->execute();
 $aboutPhoto = $aboutPhotoQuery->fetch(PDO::FETCH_ASSOC);
 
+$mottoQuery = $db->prepare('SELECT * FROM motto WHERE id = 1');
+$mottoQuery->execute();
+$motto = $mottoQuery->fetch(PDO::FETCH_ASSOC);
+
+$mottoPhotoQuery = $db->prepare('SELECT * FROM photos WHERE id = :mottoImageId');
+$mottoPhotoQuery->bindParam(':mottoImageId', $motto['image_id']);
+$mottoPhotoQuery->execute();
+$mottoPhoto = $mottoPhotoQuery->fetch(PDO::FETCH_ASSOC);
+
 $breedQuery = $db->prepare('SELECT id, name, main_photo  FROM breeds');
 $breedQuery->execute();
 $breedList = $breedQuery->fetchAll(PDO::FETCH_ASSOC);
@@ -77,14 +86,14 @@ $breedList = $breedQuery->fetchAll(PDO::FETCH_ASSOC);
         <div class="motto-area">
             <div class="motto-text-area">
                 <p class="motto-text">
-                    <?= "{$about['motto']}" ?>
+                    <?= "{$motto['motto']}" ?>
                 </p>
                 <span class="author">
-                    <?= "{$about['motto_author']}" ?>
+                    <?= "{$motto['motto_author']}" ?>
                 </span>
             </div>
             <div class="motto-img-area">
-                <img class="motto-img" src=<?= "{$about['motto_image']}"?> />
+                <img class="motto-img" src=<?= "{$mottoPhoto['link']}"?> />
             </div>
         </div>
     </section>
