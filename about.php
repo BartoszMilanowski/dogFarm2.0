@@ -13,6 +13,11 @@ $aboutQuery = $db->prepare('SELECT * FROM about WHERE id = 1');
 $aboutQuery->execute();
 $about = $aboutQuery->fetch(PDO::FETCH_ASSOC);
 
+$mainPhotoQuery = $db->prepare('SELECT * FROM photos WHERE id = :imageId');
+$mainPhotoQuery->bindParam('imageId', $about['image_id']);
+$mainPhotoQuery->execute();
+$mainPhoto = $mainPhotoQuery->fetch(PDO::FETCH_ASSOC);
+
 $galleryQuery = $db->prepare("SELECT photo_link FROM photo_gallery WHERE gallery_type = 3 AND gallery_id = 1");
 $galleryQuery->execute();
 $gallery = $galleryQuery->fetchAll(PDO::FETCH_ASSOC);
@@ -42,7 +47,7 @@ $gallery = $galleryQuery->fetchAll(PDO::FETCH_ASSOC);
     <section id="about-page">
         <div class="about-page-first">
             <div class="about-page-image">
-                <img src=<?= "{$about['about_image']}" ?> />
+                <img src=<?= "{$mainPhoto['link']}" ?>  alt=<?= "{$mainPhoto['alt']}"?>>
             </div>
             <div class="about-page-text-first">
                 <p>

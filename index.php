@@ -21,9 +21,14 @@ if($_SESSION['lang'] == 'pl'){
     $db = $dbEn;
 }
 
-$mainQuery = $db->prepare('SELECT * FROM about WHERE id = 1');
-$mainQuery->execute();
-$main = $mainQuery->fetch(PDO::FETCH_ASSOC);
+$aboutQuery = $db->prepare('SELECT * FROM about WHERE id = 1');
+$aboutQuery->execute();
+$about = $aboutQuery->fetch(PDO::FETCH_ASSOC);
+
+$aboutPhotoQuery = $db->prepare('SELECT * FROM photos WHERE id = :aboutImageId');
+$aboutPhotoQuery->bindParam(':aboutImageId', $about['image_id']);
+$aboutPhotoQuery->execute();
+$aboutPhoto = $aboutPhotoQuery->fetch(PDO::FETCH_ASSOC);
 
 $breedQuery = $db->prepare('SELECT id, name, main_photo  FROM breeds');
 $breedQuery->execute();
@@ -72,14 +77,14 @@ $breedList = $breedQuery->fetchAll(PDO::FETCH_ASSOC);
         <div class="motto-area">
             <div class="motto-text-area">
                 <p class="motto-text">
-                    <?= "{$main['motto']}" ?>
+                    <?= "{$about['motto']}" ?>
                 </p>
                 <span class="author">
-                    <?= "{$main['motto_author']}" ?>
+                    <?= "{$about['motto_author']}" ?>
                 </span>
             </div>
             <div class="motto-img-area">
-                <img class="motto-img" src=<?= "{$main['motto_image']}"?> />
+                <img class="motto-img" src=<?= "{$about['motto_image']}"?> />
             </div>
         </div>
     </section>
@@ -87,11 +92,11 @@ $breedList = $breedQuery->fetchAll(PDO::FETCH_ASSOC);
     <section id="about">
         <div class="about-section">
             <div class="about-section-image">
-                <img src=<?= "{$main['about_image']}"?> />
+                <img src=<?= "{$aboutPhoto['link']}"?>>
             </div>
             <div class="about-section-text">
                 <p>
-                    <?= "{$main['about_intro']}" ?>
+                    <?= "{$about['about_intro']}" ?>
                 </p>
                 <a class="more-link" href="about.php">
                     <?php
