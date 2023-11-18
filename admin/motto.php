@@ -11,11 +11,6 @@ $aboutQueryEn = $dbEn->prepare('SELECT * FROM about WHERE id = 1');
 $aboutQueryEn->execute();
 $aboutEn = $aboutQueryEn->fetch(PDO::FETCH_ASSOC);
 
-$allPhotosQuery = $dbPl->prepare('SELECT * FROM photos');
-$allPhotosQuery->execute();
-$allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
-
-
 $currentPhoto = "../" . $aboutPl['motto_image'];
 ?>
 

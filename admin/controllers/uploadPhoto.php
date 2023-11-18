@@ -15,8 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $filePath = $uploadDir . $fileName;
         move_uploaded_file($tmpName, $filePath);
 
-        
-
     } else {
         switch ($_FILES['file']['error']) {
             case UPLOAD_ERR_INI_SIZE:

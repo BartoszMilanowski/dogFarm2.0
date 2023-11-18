@@ -11,7 +11,15 @@ $aboutQueryEn = $dbEn->prepare('SELECT * FROM about WHERE id = 1');
 $aboutQueryEn->execute();
 $aboutEn = $aboutQueryEn->fetch(PDO::FETCH_ASSOC);
 
-$currentPhoto = "../" . $aboutPl['about_image'];
+$photoQuery = $dbPl->prepare('SELECT * FROM photos WHERE id = :imageId');
+$photoQuery->bindValue(':imageId', $aboutPl['image_id']);
+$photoQuery->execute();
+$currentPhoto = $photoQuery->fetch(PDO::FETCH_ASSOC);
+
+$allPhotosQuery = $dbPl->prepare('SELECT * FROM photos');
+$allPhotosQuery->execute();
+$allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -59,17 +67,31 @@ $currentPhoto = "../" . $aboutPl['about_image'];
                 <textarea class="form-control" id="aboutMainEn" name="aboutMainEn"
                     style="min-height: 200px"><?= "{$aboutEn['about_main']}" ?></textarea>
             </div>
+            <label for="currentPhoto" class="form-label">Zdjęcie główne</label><br />
+            <span>Id: <?= $currentPhoto['id'] ?></span><br/>
+            <span>Opis: <?= $currentPhoto['about'] ?></span><br/>
+            <span>Alt: <?= $currentPhoto['alt'] ?></span><br/>
+            <img id="currentPhoto" class="currentPhoto" src='<?= "../" . $currentPhoto['link'] ?>' /><br />
+            <input type="hidden" name="currentPhotoId" value="<?= $currentPhoto['id'] ?>">
+            <button class="btn btn-primary my-3 changePhoto">Zmień zdjęcie</button>
+
+            <div class="showPhotos hidden">
+                <?php
+                foreach ($allPhotos as $photo) {
+
+                    echo '<label class="form-label">';
+                    echo '<input type="radio" name="selectedPhotoId" value="' . $photo['id'] . '"/>';
+                    echo '<img class="currentPhoto selectedPhotoLink" name="selectedPhotoLink" src="../' . $photo['link'] . '" />';
+                    echo '</label>';
+                    
+                }
+                ?>
+            </div>
             <div class="form-group">
                 <input class="btn btn-primary" type="submit" value="Zapisz" />
             </div>
         </form>
-
-        <form class="my-5" action="controllers/uploadPhoto.php" method="post" enctype="multipart/form-data">
-            <label for="currentPhoto">Zdjęcie główne</label><br/>
-            <img class="currentPhoto my-2" name="currentPhoto" id="currentPhoto" src="<?=$currentPhoto?>"><br/>
-            <input type="file" name="file" id="file">
-            <br/><button class="btn btn-primary my-2" type="submit" name="submit">Prześlij</button>
-        </form>
     </div>
 </body>
+
 </html>
