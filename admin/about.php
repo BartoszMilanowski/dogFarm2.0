@@ -20,6 +20,10 @@ $allPhotosQuery = $dbPl->prepare('SELECT * FROM photos');
 $allPhotosQuery->execute();
 $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
 
+$currentGalleryQuery = $dbPl->prepare('SELECT * FROM photo_gallery WHERE gallery_type = 3 AND gallery_id = 1');
+$currentGalleryQuery->execute();
+$currentGallery = $currentGalleryQuery->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -88,8 +92,33 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
                 ?>
             </div>
             <div class="form-group">
-                <input class="btn btn-primary" type="submit" value="Zapisz" />
-            </div>
+                <label for="gallery" class="form-label">Galeria</label><br />
+
+                <div class="gallery">
+                    <?php
+                    foreach ($allPhotos as $photo) {
+
+                        foreach ($currentGallery as $galleryItem) {
+                            if ($galleryItem['image_id'] === $photo['id']) {
+                                $isChecked = true;
+                                break;
+                            } else {
+                                $isChecked = false;
+                            }
+                        }
+
+                        echo '<label class="form-label">';
+                        echo '<input type="checkbox" name="selectedPhotos[]" value="' . $photo['id'] . '"';
+                        echo $isChecked ? 'checked' : '';
+                        echo '/>';
+                        echo '<img class="currentPhoto" src="../' . $photo['link'] . '" />';
+                        echo '</label>';
+                    }
+                    ?>
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" value="Zapisz" />
+                </div>
         </form>
     </div>
 </body>

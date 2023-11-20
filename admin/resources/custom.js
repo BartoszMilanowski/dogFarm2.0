@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
     e.preventDefault();
 
 
-    const btn = document.querySelector('.changePhoto');
+    const btn = document.querySelectorAll('.changePhoto');
     const radioInputs = document.querySelectorAll('input[name="selectedPhotoId"]');
 
     if (btn) {
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
     if(radioInputs){
         radioInputs.forEach((radioInput) => {
-            radioInput.addEventListener('change', (e) => {
+            radioInput.addEventListener('change', () => {
                 e.preventDefault();
                 changePhoto(radioInput);
             })
