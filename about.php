@@ -18,7 +18,10 @@ $mainPhotoQuery->bindParam('imageId', $about['image_id']);
 $mainPhotoQuery->execute();
 $mainPhoto = $mainPhotoQuery->fetch(PDO::FETCH_ASSOC);
 
-$galleryQuery = $db->prepare("SELECT photo_link FROM photo_gallery WHERE gallery_type = 3 AND gallery_id = 1");
+$galleryQuery = $db->prepare("SELECT p.link
+                                FROM photo_gallery pg
+                                INNER JOIN photos p ON pg.image_id = p.id
+                                WHERE pg.gallery_type = 3 AND pg.gallery_id = 1");
 $galleryQuery->execute();
 $gallery = $galleryQuery->fetchAll(PDO::FETCH_ASSOC);
 
@@ -47,7 +50,7 @@ $gallery = $galleryQuery->fetchAll(PDO::FETCH_ASSOC);
     <section id="about-page">
         <div class="about-page-first">
             <div class="about-page-image">
-                <img src=<?= "{$mainPhoto['link']}" ?>  alt=<?= "{$mainPhoto['alt']}"?>>
+                <img src=<?= "{$mainPhoto['link']}" ?> alt=<?= "{$mainPhoto['alt']}" ?>>
             </div>
             <div class="about-page-text-first">
                 <p>
@@ -71,7 +74,7 @@ $gallery = $galleryQuery->fetchAll(PDO::FETCH_ASSOC);
         foreach ($gallery as $item) {
             echo <<<EOT
                 <div class="gallery-item">
-                    <img src="{$item['photo_link']}" />
+                    <img src="{$item['link']}" />
                 </div>
             EOT;
         }

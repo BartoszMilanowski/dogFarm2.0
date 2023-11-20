@@ -16,7 +16,10 @@ $dogQuery->bindParam(':dogId', $dogId);
 $dogQuery->execute();
 $dogResult = $dogQuery->fetch(PDO::FETCH_ASSOC);
 
-$galleryQuery = $db->prepare("SELECT photo_link FROM photo_gallery WHERE gallery_type = 2 AND gallery_id = :galleryId");
+$galleryQuery = $db->prepare("SELECT p.link
+                                FROM photo_gallery pg
+                                INNER JOIN photos p ON pg.image_id = p.id
+                                WHERE pg.gallery_type = 2 AND pg.gallery_id = :galleryId");
 $galleryQuery->bindParam(':galleryId', $dogId);
 $galleryQuery->execute();
 $gallery = $galleryQuery->fetchAll(PDO::FETCH_ASSOC);
@@ -72,7 +75,7 @@ $gallery = $galleryQuery->fetchAll(PDO::FETCH_ASSOC);
         foreach ($gallery as $item) {
             echo <<<EOT
                 <div class="gallery-item">
-                    <img src="{$item['photo_link']}" />
+                    <img src="{$item['link']}" />
                 </div>
             EOT;
         }
