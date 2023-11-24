@@ -12,6 +12,7 @@
         <a class="nav-link" href="#">Kontakt</a>
         <a class="nav-link" href="#">Rasy</a>
         <a class="nav-link" href="#">Psy</a>
+        <a class="nav-link" href="photos.php">Zdjęcia</a>
       </div>
     </div>
   </div>

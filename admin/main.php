@@ -45,6 +45,10 @@ session_start();
                         <td class="col-1"><a href="#" class="btn btn-primary" role="button">Wyświetl</td>
                         <!-- <td class="col-1"><a href="#" target="_blank" class="btn btn-primary" role="button">Podgląd</td> -->
                     </tr>
+                    <tr>
+                        <th scope="row">Zdjęcia</th>
+                        <td class="col-1"><a href="photos.php" class="btn btn-primary" role="button">Wyświetl</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
