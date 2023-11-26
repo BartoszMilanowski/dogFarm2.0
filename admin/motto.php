@@ -16,7 +16,7 @@ $photoQuery->bindValue(':imageId', $mottoPl['image_id']);
 $photoQuery->execute();
 $currentPhoto = $photoQuery->fetch(PDO::FETCH_ASSOC);
 
-$allPhotosQuery = $dbPl->prepare('SELECT * FROM photos');
+$allPhotosQuery = $dbPl->prepare('SELECT * FROM photos ORDER BY id DESC');
 $allPhotosQuery->execute();
 $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
 
