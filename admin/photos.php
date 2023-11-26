@@ -32,7 +32,10 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
         ?>
         <h1 class="py-3">Zdjęcia</h1>
 
-        <form class="my-5" action="controllers/uploadPhoto.php" method="post" enctype="multipart/form-data">
+        <button class="btn btn-primary changePhoto">Dodaj zdjęcie</button>
+
+        <form class="my-5 showPhotos hidden" action="controllers/uploadPhoto.php" method="post"
+            enctype="multipart/form-data">
             <label for="currentPhoto">Dodaj zdjęcie</label><br />
             <img class="currentPhoto my-2" name="currentPhoto" id="currentPhoto" src="<?= $currentPhoto ?>"><br />
             <input type="file" name="file" id="file">
@@ -83,7 +86,10 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
                             <a target="_blank" class="btn btn-primary" href="<?= '../' . $photo['link'] ?>">Otwórz</a>
                         </td>
                         <td>
-                            <a class="btn btn-danger" href="#">Usuń</a>
+                            <a class="btn btn-danger" href="<?= 'controllers/deletePhoto.php?id=' . $photo["id"] ?>"
+                                onclick="return confirm('Czy na pewno chcesz usunąć ten element?')">
+                                Usuń
+                            </a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

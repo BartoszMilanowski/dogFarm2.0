@@ -79,46 +79,48 @@ $currentGallery = $currentGalleryQuery->fetchAll(PDO::FETCH_ASSOC);
             <input type="hidden" name="currentPhotoId" value="<?= $currentPhoto['id'] ?>">
             <button class="btn btn-primary my-3 changePhoto">Zmień zdjęcie</button>
 
-            <div class="showPhotos hidden">
-                <?php
-                foreach ($allPhotos as $photo) {
 
-                    echo '<label class="form-label">';
-                    echo '<input type="radio" name="selectedPhotoId" value="' . $photo['id'] . '"/>';
-                    echo '<img class="currentPhoto selectedPhotoLink" name="selectedPhotoLink" src="../' . $photo['link'] . '" />';
-                    echo '</label>';
 
-                }
-                ?>
-            </div>
-            <div class="form-group">
-                <label for="gallery" class="form-label">Galeria</label><br />
+            <div class="photosList showPhotos hidden">
+            <?php
+            foreach ($allPhotos as $photo) {
 
-                <div class="gallery">
-                    <?php
-                    foreach ($allPhotos as $photo) {
+                echo '<label class="form-label">';
+                echo '<input type="radio" name="selectedPhotoId" value="' . $photo['id'] . '"/>';
+                echo '<img class="currentPhoto selectedPhotoLink" name="selectedPhotoLink" src="../' . $photo['link'] . '" />';
+                echo '</label>';
 
-                        foreach ($currentGallery as $galleryItem) {
-                            if ($galleryItem['image_id'] === $photo['id']) {
-                                $isChecked = true;
-                                break;
-                            } else {
-                                $isChecked = false;
-                            }
-                        }
+            }
+            ?>
+    </div>
+    <div class="form-group">
+        <label for="gallery" class="form-label">Galeria</label><br />
 
-                        echo '<label class="form-label">';
-                        echo '<input type="checkbox" name="selectedPhotos[]" value="' . $photo['id'] . '"';
-                        echo $isChecked ? 'checked' : '';
-                        echo '/>';
-                        echo '<img class="currentPhoto" src="../' . $photo['link'] . '" />';
-                        echo '</label>';
+        <div class="gallery">
+            <?php
+            foreach ($allPhotos as $photo) {
+
+                foreach ($currentGallery as $galleryItem) {
+                    if ($galleryItem['image_id'] === $photo['id']) {
+                        $isChecked = true;
+                        break;
+                    } else {
+                        $isChecked = false;
                     }
-                    ?>
-                </div>
-                <div class="form-group">
-                    <input class="btn btn-primary" type="submit" value="Zapisz" />
-                </div>
+                }
+
+                echo '<label class="form-label">';
+                echo '<input type="checkbox" name="selectedPhotos[]" value="' . $photo['id'] . '"';
+                echo $isChecked ? 'checked' : '';
+                echo '/>';
+                echo '<img class="currentPhoto" src="../' . $photo['link'] . '" />';
+                echo '</label>';
+            }
+            ?>
+        </div>
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Zapisz" />
+        </div>
         </form>
     </div>
 </body>
