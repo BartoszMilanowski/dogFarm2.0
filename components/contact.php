@@ -17,10 +17,6 @@ $linkTel = "tel:" . $contact["phone"];
 $linkMail = "mailto:" . $contact["email"];
 $linkFb = $contact['fb_link'];
 
-$phonePrefix = substr($contact["phone"], 0, 3);
-$phoneMain = substr($contact["phone"], 3);
-$formatPhone = $phonePrefix . ' ' . substr($phoneMain, 0, 3) . '-' . substr($phoneMain, 3, 3) . '-' . substr($phoneMain, 6);
-
 ?>
 
 <!-- Contact -->
@@ -33,7 +29,7 @@ $formatPhone = $phonePrefix . ' ' . substr($phoneMain, 0, 3) . '-' . substr($pho
             <?= "{$contact['name']}" ?>,
         </span>
         <span><a href="<?= $linkTel ?>">
-                <?= "{$formatPhone}" ?>,
+                <?= "{$contact['phone']}" ?>,
             </a></span>
         <span>
             <?= "{$contact['address']}" ?>,
