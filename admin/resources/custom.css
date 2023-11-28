@@ -23,3 +23,13 @@ input[type="radio"]{
     opacity: 0;
     cursor: pointer;
 }
+
+.success-class{
+    color: green;
+    font-size: 30px;
+}
+
+.error-class{
+    color: red;
+    font-size: 30px;
+}

@@ -35,15 +35,24 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
 
 <body class="pb-5">
     <div class="container">
-        <?php include "components/nav.php";
+        <?php include "components/nav.php"; ?>
+
+        <h1 class="py-3">O nas</h1>
+
+        <?php
 
         if (isset($_SESSION['result'])) {
-            echo $_SESSION['result'];
+
+            $resultClass = isset($_SESSION['error']) ? 'error-class' : 'success-class';
+            if (isset($_SESSION['error'])) {
+                unset($_SESSION['error']);
+            }
+
+            echo "<p class='$resultClass'>{$_SESSION['result']}</p>";
             unset($_SESSION['result']);
         }
         ?>
 
-        <h1 class="py-3">O nas</h1>
         <form action="controllers/editMotto.php" method="post">
             <div class="form-group">
                 <label for="mottoPl" class="form-label">Motto (strona główna)</label>
@@ -57,7 +66,8 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="form-group">
                 <label for="mottoAuthor" class="form-label">Autor motto</label>
-                <input type="text" class="form-control" id="mottoAuthor" name="mottoAuthor" value="<?= "{$mottoPl['motto_author']}" ?>" />
+                <input type="text" class="form-control" id="mottoAuthor" name="mottoAuthor"
+                    value="<?= "{$mottoPl['motto_author']}" ?>" />
             </div>
             <label for="currentPhoto" class="form-label">Zdjęcie główne</label><br />
             <span id="currentId">Id:

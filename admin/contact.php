@@ -23,15 +23,23 @@ $contact = $contactQuery->fetch(PDO::FETCH_ASSOC);
 <body class="pb-5">
     <div class="container">
         <?php
-        include "components/nav.php";
+        include "components/nav.php"; ?>
+
+        <h1 class="py-3">Kontakt</h1>
+
+        <?php
 
         if (isset($_SESSION['result'])) {
-            echo $_SESSION['result'];
+
+            $resultClass = isset($_SESSION['error']) ? 'error-class' : 'success-class';
+            if (isset($_SESSION['error'])) {
+                unset($_SESSION['error']);
+            }
+
+            echo "<p class='$resultClass'>{$_SESSION['result']}</p>";
             unset($_SESSION['result']);
         }
         ?>
-
-        <h1 class="py-3">Kontakt</h1>
 
         <form action="controllers/editContact.php" method="post">
             <div class="form-group">
@@ -42,11 +50,12 @@ $contact = $contactQuery->fetch(PDO::FETCH_ASSOC);
                 <label for="phone" class="form-label">Numer telefonu</label>
                 <input type="tel" class="form-control" id="phone" name="phone" pattern="\+\d{1,4} \d{3}-\d{3}-\d{3}"
                     value="<?= $contact['phone'] ?>" />
-                    <small>Format: +48 123-456-789</small>
+                <small>Format: +48 123-456-789</small>
             </div>
             <div class="form-group">
                 <label for="address" class="form-label">Adres</label>
-                <input type="text" class="form-control" id="address" name="address" value="<?= $contact['address'] ?>" />
+                <input type="text" class="form-control" id="address" name="address"
+                    value="<?= $contact['address'] ?>" />
             </div>
             <div class="form-group">
                 <label for="email" class="form-label">Adres e-mail</label>
@@ -54,7 +63,8 @@ $contact = $contactQuery->fetch(PDO::FETCH_ASSOC);
             </div>
             <div class="form-group">
                 <label for="fb-link" class="form-label">Link do profilu Facebook</label>
-                <input type="text" class="form-control" id="fb-link" name="fb-link" value="<?= $contact['fb_link'] ?>" />
+                <input type="text" class="form-control" id="fb-link" name="fb-link"
+                    value="<?= $contact['fb_link'] ?>" />
             </div>
             <div class="form-group">
                 <input class="btn btn-primary" type="submit" value="Zapisz" />

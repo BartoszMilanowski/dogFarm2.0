@@ -6,9 +6,11 @@ require_once "../../configure/db_connect.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK
-    && isset($_POST['aboutPl']) && isset($_POST['altPl'])
-    && isset($_POST['aboutEn']) && isset($_POST['altEn'])) {
+    if (
+        isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK
+        && isset($_POST['aboutPl']) && isset($_POST['altPl'])
+        && isset($_POST['aboutEn']) && isset($_POST['altEn'])
+    ) {
 
         $fileName = $_FILES['file']['name'];
         $tmpName = $_FILES['file']['tmp_name'];
@@ -26,10 +28,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (file_exists($filePath)) {
             $extension = pathinfo($fileName, PATHINFO_EXTENSION);
             $filePath = $uploadDir . $fileName;
-        
+
             $_SESSION['result'] = "Plik o podanej nazwie już istniał.";
             header('Location: ../photos.php');
-            exit; 
+            exit;
         }
 
         $newFilePath = $uploadDir . $fileName;
@@ -55,35 +57,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header('Location: ../photos.php');
 
         } else {
-            echo 'Błąd podczas kopiowania pliku.';
+            $_SESSION['error'] = 'Błąd podczas kopiowania pliku.';
+            header('Location: ../photos.php');
+
             echo 'Błąd: ' . error_get_last()['message'];
         }
 
     } else {
         switch ($_FILES['file']['error']) {
             case UPLOAD_ERR_INI_SIZE:
-                echo 'Przesłany plik przekracza rozmiar określony w pliku konfiguracyjnym PHP.';
+                $_SESSION['error'] = 'Przesłany plik przekracza rozmiar określony w pliku konfiguracyjnym PHP.';
+                header('Location: ../photos.php');
                 break;
             case UPLOAD_ERR_FORM_SIZE:
-                echo 'Przesłany plik przekracza rozmiar określony w formularzu HTML.';
+                $_SESSION['error'] = 'Przesłany plik przekracza rozmiar określony w formularzu HTML.';
+                header('Location: ../photos.php');
                 break;
             case UPLOAD_ERR_PARTIAL:
-                echo 'Plik został przesłany tylko częściowo.';
+                $_SESSION['error'] = 'Plik został przesłany tylko częściowo.';
+                header('Location: ../photos.php');
                 break;
             case UPLOAD_ERR_NO_FILE:
-                echo 'Plik nie został przesłany.';
+                $_SESSION['error'] = 'Plik nie został przesłany.';
+                header('Location: ../photos.php');
                 break;
             case UPLOAD_ERR_NO_TMP_DIR:
-                echo 'Brak folderu tymczasowego.';
+                $_SESSION['error'] = 'Brak folderu tymczasowego.';
+                header('Location: ../photos.php');
                 break;
             case UPLOAD_ERR_CANT_WRITE:
-                echo 'Błąd zapisu na dysk.';
+                $_SESSION['error'] = 'Błąd zapisu na dysk.';
+                header('Location: ../photos.php');
                 break;
             case UPLOAD_ERR_EXTENSION:
-                echo 'Rozszerzenie PHP zatrzymało przesyłanie pliku.';
+                $_SESSION['error'] = 'Rozszerzenie PHP zatrzymało przesyłanie pliku.';
+                header('Location: ../photos.php');
                 break;
             default:
-                echo 'Nieznany błąd.';
+                $_SESSION['error'] = 'Nieznany błąd.';
+                header('Location: ../photos.php');
                 break;
         }
     }

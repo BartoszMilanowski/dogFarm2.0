@@ -40,15 +40,22 @@ $currentGallery = $currentGalleryQuery->fetchAll(PDO::FETCH_ASSOC);
 <body class="pb-5">
     <div class="container">
         <?php
-        include "components/nav.php";
+        include "components/nav.php"; ?>
+
+        <h1 class="py-3">O nas</h1>
+        <?php
 
         if (isset($_SESSION['result'])) {
-            echo $_SESSION['result'];
+
+            $resultClass = isset($_SESSION['error']) ? 'error-class' : 'success-class';
+            if (isset($_SESSION['error'])) {
+                unset($_SESSION['error']);
+            }
+
+            echo "<p class='$resultClass'>{$_SESSION['result']}</p>";
             unset($_SESSION['result']);
         }
         ?>
-
-        <h1 class="py-3">O nas</h1>
 
         <form action="controllers/editAbout.php" method="post">
             <div class="form-group">
