@@ -65,8 +65,9 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
             </span><br />
             <img id="currentPhoto" class="currentPhoto" src='<?= "../" . $currentPhoto['link'] ?>' /><br />
             <input type="hidden" name="currentPhotoId" value="<?= $currentPhoto['id'] ?>">
-            <button class="btn btn-primary my-3 changePhoto">Zmień zdjęcie</button>
-            <div class="showPhotos hidden">
+
+            <button class="btn btn-primary my-3 showList" data-target="list1">Zmień zdjęcie</button>
+            <div class="photosList hidden" id="list1">
                 <?php
                 foreach ($allPhotos as $photo) {
 
