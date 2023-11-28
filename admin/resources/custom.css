@@ -10,13 +10,16 @@
 .photosList{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    max-height: 700px;
+    overflow-y: scroll;
 }
 
 .hidden{
     display: none;
 }
 
-.gallery{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);   
+input[type="radio"]{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
 }

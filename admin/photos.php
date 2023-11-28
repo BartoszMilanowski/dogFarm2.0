@@ -32,10 +32,10 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
         ?>
         <h1 class="py-3">Zdjęcia</h1>
 
-        <button class="btn btn-primary changePhoto">Dodaj zdjęcie</button>
+        <button class="btn btn-primary showList" data-target='list1'>Dodaj zdjęcie</button>
 
-        <form class="my-5 showPhotos hidden" action="controllers/uploadPhoto.php" method="post"
-            enctype="multipart/form-data">
+        <form class="my-5 hidden" action="controllers/uploadPhoto.php" method="post"
+            enctype="multipart/form-data" id='list1'>
             <label for="currentPhoto">Dodaj zdjęcie</label><br />
             <img class="currentPhoto my-2" name="currentPhoto" id="currentPhoto" src="<?= $currentPhoto ?>"><br />
             <input type="file" name="file" id="file">
