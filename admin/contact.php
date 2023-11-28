@@ -24,6 +24,11 @@ $contact = $contactQuery->fetch(PDO::FETCH_ASSOC);
     <div class="container">
         <?php
         include "components/nav.php";
+
+        if (isset($_SESSION['result'])) {
+            echo $_SESSION['result'];
+            unset($_SESSION['result']);
+        }
         ?>
 
         <h1 class="py-3">Kontakt</h1>
@@ -37,6 +42,7 @@ $contact = $contactQuery->fetch(PDO::FETCH_ASSOC);
                 <label for="phone" class="form-label">Numer telefonu</label>
                 <input type="tel" class="form-control" id="phone" name="phone" pattern="\+\d{1,4} \d{3}-\d{3}-\d{3}"
                     value="<?= $contact['phone'] ?>" />
+                    <small>Format: +48 123-456-789</small>
             </div>
             <div class="form-group">
                 <label for="address" class="form-label">Adres</label>
@@ -47,7 +53,7 @@ $contact = $contactQuery->fetch(PDO::FETCH_ASSOC);
                 <input type="email" class="form-control" id="email" name="email" value="<?= $contact['email'] ?>" />
             </div>
             <div class="form-group">
-                <label for="fb-link" class="form-label">Imię i nazwisko</label>
+                <label for="fb-link" class="form-label">Link do profilu Facebook</label>
                 <input type="text" class="form-control" id="fb-link" name="fb-link" value="<?= $contact['fb_link'] ?>" />
             </div>
             <div class="form-group">
