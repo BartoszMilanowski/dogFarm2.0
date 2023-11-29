@@ -40,7 +40,7 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
         }
         ?>
 
-        <button class="btn btn-primary showList" data-target='list1'>Dodaj zdjęcie</button>
+        <button class="btn btn-primary showList mb-3" data-target='list1'>Dodaj zdjęcie</button>
 
         <form class="my-5 hidden" action="controllers/uploadPhoto.php" method="post" enctype="multipart/form-data"
             id='list1'>

@@ -27,6 +27,8 @@ $breedList = $breedListQuery->fetchAll(PDO::FETCH_ASSOC);
 
         <h1 class="py-3">Lista ras</h1>
 
+        <a href="#" class="btn btn-primary mb-3">Dodaj rasę</a>
+
         <table class="table">
             <thead>
                 <tr>
@@ -45,7 +47,7 @@ $breedList = $breedListQuery->fetchAll(PDO::FETCH_ASSOC);
                             <?= $breed['name'] ?>
                         </th>
                         <th>
-                            <a href="#" class='btn btn-primary'>Edytuj</a>
+                            <a href="breed.php?id=<?= $breed['id']?>" class='btn btn-primary'>Edytuj</a>
                         </th>
                     </tr>
                 <?php endforeach; ?>
