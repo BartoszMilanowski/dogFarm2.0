@@ -39,8 +39,7 @@ $currentGallery = $currentGalleryQuery->fetchAll(PDO::FETCH_ASSOC);
 
 <body class="pb-5">
     <div class="container">
-        <?php
-        include "components/nav.php"; ?>
+        <?php include "components/nav.php"; ?>
 
         <h1 class="py-3">O nas</h1>
         <?php

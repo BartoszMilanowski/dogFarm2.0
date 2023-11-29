@@ -10,7 +10,7 @@
         <a class="nav-link" href="about.php">O nas</a>
         <a class="nav-link" href="motto.php">Motto</a>
         <a class="nav-link" href="contact.php">Kontakt</a>
-        <a class="nav-link" href="#">Rasy</a>
+        <a class="nav-link" href="breedList.php">Rasy</a>
         <a class="nav-link" href="#">Psy</a>
         <a class="nav-link" href="photos.php">Zdjęcia</a>
       </div>
