@@ -2,12 +2,14 @@
 session_start();
 require_once "../../configure/db_connect.php";
 
-if(isset($_POST["aboutIntro"]) && isset($_POST["aboutMain"])
-&& isset($_POST["aboutIntroEn"]) && isset($_POST["aboutMainEn"]) && 
-isset($_POST["currentPhotoId"]) & isset($_POST['selectedPhotos'])){
+if (
+    isset($_POST["aboutIntro"]) && isset($_POST["aboutMain"])
+    && isset($_POST["aboutIntroEn"]) && isset($_POST["aboutMainEn"]) &&
+    isset($_POST["currentPhotoId"])
+) {
 
     $aboutIntroPl = $_POST["aboutIntro"];
-    $aboutMainPl =  $_POST["aboutMain"];
+    $aboutMainPl = $_POST["aboutMain"];
     $aboutIntroEn = $_POST["aboutIntroEn"];
     $aboutMainEn = $_POST["aboutMainEn"];
     $photo = $_POST['currentPhotoId'];
@@ -25,7 +27,7 @@ isset($_POST["currentPhotoId"]) & isset($_POST['selectedPhotos'])){
     $stmtPlDelete = $dbPl->prepare($photosDeleteQuery);
     $stmtPlDelete->execute();
 
-    foreach($selectedPhotos as $photo){
+    foreach ($selectedPhotos as $photo) {
         $stmtPlInsert = $dbPl->prepare($photosInsertQuery);
         $stmtPlInsert->bindParam(":galleryImageId", $photo, PDO::PARAM_INT);
         $stmtPlInsert->execute();
@@ -39,7 +41,7 @@ isset($_POST["currentPhotoId"]) & isset($_POST['selectedPhotos'])){
     $stmtEnDelete = $dbEn->prepare($photosDeleteQuery);
     $stmtEnDelete->execute();
 
-    foreach($selectedPhotos as $photo){
+    foreach ($selectedPhotos as $photo) {
         $stmtEnInsert = $dbEn->prepare($photosInsertQuery);
         $stmtEnInsert->bindParam(":galleryImageId", $photo, PDO::PARAM_INT);
         $stmtEnInsert->execute();

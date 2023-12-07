@@ -61,7 +61,7 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
         <h1 class="py-3">Edytuj
             <?= $breedPl['name'] ?>
         </h1>
-        <form action="#" method="post">
+        <form action="controllers/editBreed.php" method="post">
             <div class="form-group">
                 <label for="breedName" class="form-label">Nazwa rasy</label>
                 <input class="form-control" type="text" id="breedName" name="breedName"
@@ -78,22 +78,22 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
                     name="basicInfoEn"><?= $breedEn['basic_info'] ?></textarea>
             </div>
             <div class="form-group">
-                <label for="dogCharakter" class="form-label">Charakter</label>
+                <label for="dogCharacter" class="form-label">Charakter</label>
                 <br /><small>PL</small>
-                <textarea class="form-control" id="dogCharakter"
-                    name="dogCharakterPl"><?= $breedPl['dog_character'] ?></textarea>
+                <textarea class="form-control" id="dogCharacter"
+                    name="dogCharacterPl"><?= $breedPl['dog_character'] ?></textarea>
                 <small>EN</small>
-                <textarea class="form-control" id="dogCharakter"
-                    name="dogCharakterEn"><?= $breedEn['dog_character'] ?></textarea>
+                <textarea class="form-control" id="dogCharacter"
+                    name="dogCharacterEn"><?= $breedEn['dog_character'] ?></textarea>
             </div>
             <div class="form-group">
-                <label for="apparence" class="form-label">Wygląd</label>
+                <label for="appearance" class="form-label">Wygląd</label>
                 <br /><small>PL</small>
-                <textarea class="form-control" id="apparence"
-                    name="apparencePl"><?= $breedPl['appearance'] ?></textarea>
+                <textarea class="form-control" id="appearance"
+                    name="appearancePl"><?= $breedPl['appearance'] ?></textarea>
                 <small>EN</small>
-                <textarea class="form-control" id="apparence"
-                    name="apparenceEn"><?= $breedEn['appearance'] ?></textarea>
+                <textarea class="form-control" id="appearance"
+                    name="appearanceEn"><?= $breedEn['appearance'] ?></textarea>
             </div>
             <div class="form-group">
                 <label for="size" class="form-label">Wielkość</label>
