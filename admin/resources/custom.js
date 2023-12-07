@@ -18,21 +18,12 @@ document.addEventListener('DOMContentLoaded', (e) => {
             radioInput.addEventListener('change', () => {
                 e.preventDefault();
                 const targetId = radioInput.closest('.photosList').id;
+                console.log(targetId);
                 changePhoto(radioInput, targetId);
             })
         })
     }
 });
-
-const togglePhotosList = (targetId) => {
-    const photosList = document.getElementById(targetId);
-
-    if (photosList.classList.contains('hidden')) {
-        photosList.classList.remove('hidden');
-    } else {
-        photosList.classList.add('hidden');
-    }
-}
 
 const changePhoto = (radioInput, targetId) => {
 
@@ -47,4 +38,14 @@ const changePhoto = (radioInput, targetId) => {
     radioInput.checked = false;
 
     togglePhotosList(targetId);
+}
+
+const togglePhotosList = (targetId) => {
+    const photosList = document.getElementById(targetId);
+
+    if (photosList.classList.contains('hidden')) {
+        photosList.classList.remove('hidden');
+    } else {
+        photosList.classList.add('hidden');
+    }
 }
