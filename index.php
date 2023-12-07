@@ -15,9 +15,9 @@ if (!isset($_SESSION['lang_by_user'])) {
     }
 }
 
-if($_SESSION['lang'] == 'pl'){
+if ($_SESSION['lang'] == 'pl') {
     $db = $dbPl;
-} else{
+} else {
     $db = $dbEn;
 }
 
@@ -39,7 +39,7 @@ $mottoPhotoQuery->bindParam(':mottoImageId', $motto['image_id']);
 $mottoPhotoQuery->execute();
 $mottoPhoto = $mottoPhotoQuery->fetch(PDO::FETCH_ASSOC);
 
-$breedQuery = $db->prepare('SELECT id, name, main_photo  FROM breeds');
+$breedQuery = $db->prepare('SELECT id, name, photo_id  FROM breeds');
 $breedQuery->execute();
 $breedList = $breedQuery->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -48,7 +48,7 @@ $breedList = $breedQuery->fetchAll(PDO::FETCH_ASSOC);
 <html lang="pl">
 
 <head>
-    <?php include 'configure/head.php'?>
+    <?php include 'configure/head.php' ?>
 
     <title>
         <?php
@@ -68,9 +68,13 @@ $breedList = $breedQuery->fetchAll(PDO::FETCH_ASSOC);
     if (sizeof($breedList) > 0) {
         echo '<section id="slideshow">';
         foreach ($breedList as $breed) {
+            $breedPhotoQuery = $db->prepare('SELECT * FROM photos WHERE id = :imageId');
+            $breedPhotoQuery->bindParam('imageId', $breed['photo_id']);
+            $breedPhotoQuery->execute();
+            $breedPhoto = $breedPhotoQuery->fetch(PDO::FETCH_ASSOC);
             echo <<<EOT
             <div class="slide">
-                <img src="{$breed['main_photo']}"/>
+                <img src="{$breedPhoto['link']}"/>
                 <div class="capture-text">
                     <a href="breed.php?id={$breed['id']}">{$breed['name']}</a>
                 </div>
@@ -93,7 +97,7 @@ $breedList = $breedQuery->fetchAll(PDO::FETCH_ASSOC);
                 </span>
             </div>
             <div class="motto-img-area">
-                <img class="motto-img" src=<?= "{$mottoPhoto['link']}"?> />
+                <img class="motto-img" src=<?= "{$mottoPhoto['link']}" ?> />
             </div>
         </div>
     </section>
@@ -101,7 +105,7 @@ $breedList = $breedQuery->fetchAll(PDO::FETCH_ASSOC);
     <section id="about">
         <div class="about-section">
             <div class="about-section-image">
-                <img src=<?= "{$aboutPhoto['link']}"?>>
+                <img src=<?= "{$aboutPhoto['link']}" ?>>
             </div>
             <div class="about-section-text">
                 <p>
