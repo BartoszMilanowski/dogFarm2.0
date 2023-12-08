@@ -50,8 +50,15 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
 
 
     <title>
-        Edytuj
-        <?= $breedPl['name'] ?>
+        <?php
+        if ($id != 0) {
+            echo "Edytuj {$breedPl['name']}";
+        } else {
+            echo "Dodaj rasę";
+        }
+        ?>
+
+
     </title>
 </head>
 
@@ -59,8 +66,14 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
     <div class="container">
         <?php include "components/nav.php"; ?>
 
-        <h1 class="py-3">Edytuj
-            <?= $breedPl['name'] ?>
+        <h1 class="py-3">
+            <?php
+            if ($id != 0) {
+                echo "Edytuj {$breedPl['name']}";
+            } else {
+                echo "Dodaj rasę";
+            }
+            ?>
         </h1>
         <?php
 
@@ -75,6 +88,7 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
             unset($_SESSION['result']);
         }
         ?>
+
         <form action="controllers/editBreed.php" method="post" onsubmit="return validateForm()">
             <div class="form-group">
                 <label for="breedName" class="form-label">Nazwa rasy</label>
@@ -202,6 +216,8 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
                 <input type="checkbox" name="showDogs" id="showDogs" <?= $breedPl['show_dogs'] ? 'checked' : '' ?> />
             </div>
 
+
+
             <?php
             if ($id != 0) {
                 echo <<<EOT
@@ -226,8 +242,29 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
                 echo <<<EOT
                 </div>
                 EOT;
+            } else {
+                echo <<<EOT
+
+                <input type="hidden" name="currentPhotoId" value="{$currentPhoto['id']}">
+                <button class="btn btn-primary my-3 showList" data-target="list1">Wybierz zdjęcie</button>
+
+                <div class="photosList hidden" id="list1">
+                EOT;
+                foreach ($allPhotos as $photo) {
+                    echo <<<EOT
+                    <label class="form-label">
+                    <input type="radio" name="selectedPhotoId" value="{$photo['id']}"/>
+                    <img class="currentPhoto selectedPhotoLink" name="selectedPhotoLink" src="../{$photo['link']}" />
+                    </label>
+                    EOT;
+                }
+
+                echo <<<EOT
+                </div>
+                EOT;
             }
             ?>
+
             <div class="form-group">
                 <label for="gallery" class="form-label">Galeria</label><br />
 
