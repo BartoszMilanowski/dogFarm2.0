@@ -61,6 +61,19 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
         <h1 class="py-3">Edytuj
             <?= $breedPl['name'] ?>
         </h1>
+        <?php
+
+        if (isset($_SESSION['result'])) {
+
+            $resultClass = isset($_SESSION['error']) ? 'error-class' : 'success-class';
+            if (isset($_SESSION['error'])) {
+                unset($_SESSION['error']);
+            }
+
+            echo "<p class='$resultClass'>{$_SESSION['result']}</p>";
+            unset($_SESSION['result']);
+        }
+        ?>
         <form action="controllers/editBreed.php" method="post">
             <div class="form-group">
                 <label for="breedName" class="form-label">Nazwa rasy</label>
