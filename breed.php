@@ -34,26 +34,26 @@ if ($breedResult['show_dogs']) {
     $dogsQuery->bindParam(":breedId", $breedId);
     $dogsQuery->execute();
     $dogs = $dogsQuery->fetchAll(PDO::FETCH_ASSOC);
+}
 
-    $maleDogs = array();
-    $femaleDogs = array();
-    $retiredDogs = array();
+$maleDogs = array();
+$femaleDogs = array();
+$retiredDogs = array();
 
-    foreach ($dogs as $dog) {
-        $dogCat = $dog["category"];
-        switch ($dogCat) {
-            case 1:
-                $maleDogs[] = $dog;
-                break;
-            case 2:
-                $femaleDogs[] = $dog;
-                break;
-            case 3:
-                $retiredDogs[] = $dog;
-                break;
-            default:
-                break;
-        }
+foreach ($dogs as $dog) {
+    $dogCat = $dog["category"];
+    switch ($dogCat) {
+        case 1:
+            $maleDogs[] = $dog;
+            break;
+        case 2:
+            $femaleDogs[] = $dog;
+            break;
+        case 3:
+            $retiredDogs[] = $dog;
+            break;
+        default:
+            break;
     }
 }
 ?>
