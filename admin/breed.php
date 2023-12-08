@@ -48,6 +48,7 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <?php include "configure/head.php" ?>
 
+
     <title>
         Edytuj
         <?= $breedPl['name'] ?>
@@ -74,7 +75,7 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
             unset($_SESSION['result']);
         }
         ?>
-        <form action="controllers/editBreed.php" method="post">
+        <form action="controllers/editBreed.php" method="post" onsubmit="return validateForm()">
             <div class="form-group">
                 <label for="breedName" class="form-label">Nazwa rasy</label>
                 <input class="form-control" type="text" id="breedName" name="breedName"

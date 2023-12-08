@@ -41,7 +41,7 @@ $contact = $contactQuery->fetch(PDO::FETCH_ASSOC);
         }
         ?>
 
-        <form action="controllers/editContact.php" method="post">
+        <form action="controllers/editContact.php" method="post" onsubmit="return validateForm()">
             <div class="form-group">
                 <label for="name" class="form-label">Imię i nazwisko</label>
                 <input type="text" class="form-control" id="name" name="name" value="<?= $contact['name'] ?>" />

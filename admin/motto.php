@@ -53,7 +53,7 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
         }
         ?>
 
-        <form action="controllers/editMotto.php" method="post">
+        <form action="controllers/editMotto.php" method="post" onsubmit="return validateForm()">
             <div class="form-group">
                 <label for="mottoPl" class="form-label">Motto (strona główna)</label>
                 <textarea class="form-control" id="mottoPl" name="mottoPl"

@@ -56,7 +56,7 @@ $currentGallery = $currentGalleryQuery->fetchAll(PDO::FETCH_ASSOC);
         }
         ?>
 
-        <form action="controllers/editAbout.php" method="post">
+        <form action="controllers/editAbout.php" method="post" onsubmit="return validateForm()">
             <div class="form-group">
                 <label for="aboutIntro" class="form-label">O nas - wstęp</label>
                 <textarea class="form-control" id="aboutIntro" name="aboutIntro"
