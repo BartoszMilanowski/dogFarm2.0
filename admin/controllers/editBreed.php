@@ -151,7 +151,7 @@ if ($breedId != 0) {
 
 } else {
 
-    $galleryId = $dbPl->lastInsertId();
+    $breedId = $dbPl->lastInsertId();
 
     foreach ($selectedPhotos as $selectedPhoto) {
         $stmtPlInsert = $dbPl->prepare($photosInsertQuery);
@@ -169,7 +169,7 @@ if ($breedId != 0) {
 
 
     $_SESSION['result'] = $breedName . " dodano do listy ras";
-    header('Location: ../breed.php?id=' . $galleryId);
+    header('Location: ../breed.php?id=' . $breedId);
 
 }
 
