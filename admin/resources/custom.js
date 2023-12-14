@@ -32,6 +32,14 @@ const changePhoto = (radioInput, targetId) => {
     const selectedLink = radioInput.closest('label').querySelector('.selectedPhotoLink');
     const currentId = document.querySelector("#currentId");
 
+    if(currentId.hasAttribute('hidden')){
+        currentId.removeAttribute('hidden');
+    }
+
+    if(currentPhoto.hasAttribute('hidden')){
+        currentPhoto.removeAttribute('hidden');
+    }
+
     currentPhoto.src = selectedLink.src;
     hiddenInput.value = radioInput.value;
     currentId.innerHTML = "Id: " + radioInput.value;

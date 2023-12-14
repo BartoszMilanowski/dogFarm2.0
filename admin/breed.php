@@ -216,20 +216,17 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
                 <input type="checkbox" name="showDogs" id="showDogs" <?= $breedPl['show_dogs'] ? 'checked' : '' ?> />
             </div>
 
+            <label for="currentPhoto" class="form-label">Zdjęcie główne</label><br />
+            <span id="currentId" <?= $id == 0 ? 'hidden' : '' ?>>
+                <?= "Id: {$currentPhoto['id']}" ?>
+            </span><br />
+            <img id="currentPhoto" class="currentPhoto" src=<?= "../{$currentPhoto['link']}" ?> <?= $id == 0 ? 'hidden' : '' ?> /><br />
+            <input type="hidden" name="currentPhotoId" value=<?= "{$currentPhoto['id']}" ?> />
 
+            <button class="btn btn-primary my-3 showList" data-target="list1">Zmień zdjęcie</button>
 
-            <?php
-            if ($id != 0) {
-                echo <<<EOT
-                <label for="currentPhoto" class="form-label">Zdjęcie główne</label><br />
-                <span id="currentId">Id: {$currentPhoto['id']}</span><br />
-                <img id="currentPhoto" class="currentPhoto" src='../{$currentPhoto["link"]}' /><br />
-                <input type="hidden" name="currentPhotoId" value="{$currentPhoto['id']}">
-
-                <button class="btn btn-primary my-3 showList" data-target="list1">Zmień zdjęcie</button>
-
-                <div class="photosList hidden" id="list1">
-                EOT;
+            <div class="photosList hidden" id="list1">
+                <?php
                 foreach ($allPhotos as $photo) {
                     echo <<<EOT
                     <label class="form-label">
@@ -238,33 +235,9 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
                     </label>
                     EOT;
                 }
+                ?>
 
-                echo <<<EOT
-                </div>
-                EOT;
-            } else {
-                echo <<<EOT
-
-                <input type="hidden" name="currentPhotoId" value="{$currentPhoto['id']}">
-                <button class="btn btn-primary my-3 showList" data-target="list1">Wybierz zdjęcie</button>
-
-                <div class="photosList hidden" id="list1">
-                EOT;
-                foreach ($allPhotos as $photo) {
-                    echo <<<EOT
-                    <label class="form-label">
-                    <input type="radio" name="selectedPhotoId" value="{$photo['id']}"/>
-                    <img class="currentPhoto selectedPhotoLink" name="selectedPhotoLink" src="../{$photo['link']}" />
-                    </label>
-                    EOT;
-                }
-
-                echo <<<EOT
-                </div>
-                EOT;
-            }
-            ?>
-
+            </div>
             <div class="form-group">
                 <label for="gallery" class="form-label">Galeria</label><br />
 
