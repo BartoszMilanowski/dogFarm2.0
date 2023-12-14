@@ -94,7 +94,7 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
                 <label for="breedName" class="form-label">Nazwa rasy</label>
                 <input class="form-control" type="text" id="breedName" name="breedName"
                     value="<?= $breedPl['name'] ?>" />
-                <input type="hidden" id="breedId" name="breedId" value="<?= $breedPl['id'] ?>" />
+                <input type="hidden" id="breedId" name="breedId" value="<?= $id != 0 ? $breedPl['id'] : '0' ?>" />
             </div>
             <div class="form-group">
                 <label for="basicInfo" class="form-label">Podstawowe dane</label>
