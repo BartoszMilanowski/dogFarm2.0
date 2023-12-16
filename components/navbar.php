@@ -8,7 +8,7 @@ if ($_SESSION['lang'] == 'pl') {
     $db = $dbEn;
 }
 
-$breedsQuery = $db->query('SELECT * FROM breeds');
+$breedsQuery = $db->query('SELECT * FROM breeds WHERE draft <> 1');
 $breeds = $breedsQuery->fetchAll();
 
 ?>

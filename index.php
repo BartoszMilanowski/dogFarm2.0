@@ -39,7 +39,7 @@ $mottoPhotoQuery->bindParam(':mottoImageId', $motto['image_id']);
 $mottoPhotoQuery->execute();
 $mottoPhoto = $mottoPhotoQuery->fetch(PDO::FETCH_ASSOC);
 
-$breedQuery = $db->prepare('SELECT id, name, photo_id  FROM breeds');
+$breedQuery = $db->prepare('SELECT id, name, photo_id  FROM breeds WHERE draft <> 1');
 $breedQuery->execute();
 $breedList = $breedQuery->fetchAll(PDO::FETCH_ASSOC);
 ?>

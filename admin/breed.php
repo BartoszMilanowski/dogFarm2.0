@@ -270,6 +270,10 @@ $allPhotos = $allPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
                     ?>
                 </div>
             </div>
+            <div class="form-group mb-3">
+                <label for="draft">Wersja robocza</label>
+                <input type="checkbox" name="draft" id="draft" <?= $breedPl['draft'] ? 'checked' : '' ?> />
+            </div>
             <div class="form-group">
                 <input class="btn btn-primary" type="submit" value="Zapisz" />
             </div>

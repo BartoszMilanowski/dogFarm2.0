@@ -38,10 +38,12 @@ $tailEn = $_POST['tailEn'];
 $temperamentEn = $_POST['temperamentEn'];
 
 $showDogs = isset($_POST['showDogs']) ? 1 : 0;
+$draft = isset($_POST['draft']) ? 1 : 0;
 $photo = $_POST['currentPhotoId'];
 $selectedPhotos = $_POST['selectedPhotos'];
 
 $editQuery = "UPDATE breeds SET name = :name,
+    draft = :draft,
     photo_id = :photo,
     show_dogs = :showDogs,
     basic_info = :basicInfo,
@@ -62,9 +64,9 @@ $editQuery = "UPDATE breeds SET name = :name,
     WHERE id = :breedId";
 
 $addQuery = "INSERT INTO breeds
-(name, photo_id, show_dogs, basic_info, dog_character, appearance, size, coat, ointment, head, neck, eyes, ears, torso,
+(name, draft, photo_id, show_dogs, basic_info, dog_character, appearance, size, coat, ointment, head, neck, eyes, ears, torso,
 forelimbs, hind_limbs, tail, temperament)
-VALUES (:name, :photo, :showDogs, :basicInfo, :dogCharacter, :appearance, :size, :coat, :ointment, :head, :neck, :eyes, :ears,
+VALUES (:name, :draft, :photo, :showDogs, :basicInfo, :dogCharacter, :appearance, :size, :coat, :ointment, :head, :neck, :eyes, :ears,
 :torso, :forelimbs, :hindLimbs, :tail, :temperament)";
 
 $photosInsertQuery = "INSERT INTO photo_gallery (gallery_type, gallery_id, image_id) VALUES (1, :galleryId, :galleryImageId)";
@@ -82,6 +84,7 @@ if ($breedId != 0) {
     $stmtEn = $dbEn->prepare($addQuery);
 }
 $stmtPl->bindParam(":name", $breedName, PDO::PARAM_STR);
+$stmtPl->bindParam(":draft", $draft, PDO::PARAM_INT);
 $stmtPl->bindParam(":photo", $photo, PDO::PARAM_INT);
 $stmtPl->bindParam(":showDogs", $showDogs, PDO::PARAM_INT);
 $stmtPl->bindParam(":basicInfo", $basicInfoPl, PDO::PARAM_STR);
@@ -102,6 +105,7 @@ $stmtPl->bindParam(":temperament", $temperamentPl, PDO::PARAM_STR);
 $stmtPl->execute();
 
 $stmtEn->bindParam(":name", $breedName, PDO::PARAM_STR);
+$stmtEn->bindParam(":draft", $draft, PDO::PARAM_INT);
 $stmtEn->bindParam(":photo", $photo, PDO::PARAM_INT);
 $stmtEn->bindParam(":showDogs", $showDogs, PDO::PARAM_INT);
 $stmtEn->bindParam(":basicInfo", $basicInfoEn, PDO::PARAM_STR);
@@ -144,7 +148,6 @@ if ($breedId != 0) {
         $stmtEnInsert->bindParam(":galleryImageId", $selectedPhoto, PDO::PARAM_INT);
         $stmtEnInsert->execute();
     }
-
 
     $_SESSION['result'] = "Dane zaktualizowane";
     header('Location: ../breed.php?id=' . $breedId);
