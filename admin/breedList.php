@@ -3,7 +3,7 @@
 session_start();
 require_once "../configure/db_connect.php";
 
-$breedListQuery = $dbPl->prepare("SELECT id, name FROM breeds");
+$breedListQuery = $dbPl->prepare("SELECT id, name, draft FROM breeds");
 $breedListQuery->execute();
 $breedList = $breedListQuery->fetchAll(PDO::FETCH_ASSOC);
 
@@ -35,6 +35,7 @@ $breedList = $breedListQuery->fetchAll(PDO::FETCH_ASSOC);
                     <th scope="col">Id</th>
                     <th scope="col">Nazwa</th>
                     <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -45,6 +46,9 @@ $breedList = $breedListQuery->fetchAll(PDO::FETCH_ASSOC);
                         </th>
                         <th>
                             <?= $breed['name'] ?>
+                        </th>
+                        <th>
+                            <?= $breed['draft'] ? '<span style="color: red; font-style: italic">Wersja robocza</span>' : '' ?>
                         </th>
                         <th>
                             <a href="breed.php?id=<?= $breed['id']?>" class='btn btn-primary'>Edytuj</a>
