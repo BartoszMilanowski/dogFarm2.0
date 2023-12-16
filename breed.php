@@ -8,6 +8,11 @@ if ($_SESSION['lang'] == 'pl') {
     $db = $dbEn;
 }
 
+if(!isset($_GET['id']) || empty($_GET['id']) || $_GET['id'] == 0){
+    header('Location: index.php');
+    exit();
+}
+
 $breedId = $_GET['id'];
 
 $breedQuery = $db->prepare("SELECT * FROM breeds WHERE id = :breedId");

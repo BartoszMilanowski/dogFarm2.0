@@ -9,6 +9,11 @@ if ($_SESSION['lang'] == 'pl') {
     $db = $dbEn;
 }
 
+if(!isset($_GET['id']) || empty($_GET['id']) || $_GET['id'] == 0){
+    header('Location: index.php');
+    exit();
+}
+
 $dogId = $_GET['id'];
 
 $dogQuery = $db->prepare("SELECT * FROM dog WHERE id = :dogId");
