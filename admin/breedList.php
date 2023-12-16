@@ -36,6 +36,7 @@ $breedList = $breedListQuery->fetchAll(PDO::FETCH_ASSOC);
                     <th scope="col">Nazwa</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -51,7 +52,12 @@ $breedList = $breedListQuery->fetchAll(PDO::FETCH_ASSOC);
                             <?= $breed['draft'] ? '<span style="color: red; font-style: italic">Wersja robocza</span>' : '' ?>
                         </th>
                         <th>
-                            <a href="breed.php?id=<?= $breed['id']?>" class='btn btn-primary'>Edytuj</a>
+                            <a href="breed.php?id=<?= $breed['id'] ?>" class='btn btn-primary'>Edytuj</a>
+                        </th>
+                        <th>
+                            <a href="controllers/deleteBreed.php?id=<?= $breed['id'] ?>" class="btn btn-danger"
+                                onclick="return confirm('Czy na pewno chcesz usunąć ten element?')">
+                                Usuń</a>
                         </th>
                     </tr>
                 <?php endforeach; ?>
